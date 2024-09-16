@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+body {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        max-width: 420px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    height: 7.5rem;
+    margin-left: 1.2rem;
+    margin-right: 7rem;
+    justify-content: space-between;
+}
+
+.header-logo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    width: 5rem;
+    height: 6rem;
+}
+
+.header-logo p {
+    font-size: 3em;
+    margin-left: 0.3em;
+}
+
+.header-menu {
+    align-items: center;
+    width: 16rem;
+    justify-content: space-between;
+}
+
+.header-menu a {
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.main-visual {
+    background-image: url("../images/TopPageMemoImage.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 31rem;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+}
+
+.main-visual h1 {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #333333;
+    font-size: 5em;
+}
+
+.main {
+    padding: 4em 0 2em;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 35rem;
+}
+
+.fa-regular::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+}
+
+.center-text {
+    justify-content: center;
+    align-items: center;
+}
+
+.main .center-text h2 {
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+.main p {
+    margin: 0 0;
+    padding: 3rem 0 5rem;
+    line-height: 3;
+}
+
+.footer {
+    padding-top: 3rem;
+    padding-left: 3rem;
+    padding-bottom: 4rem;
+    background-color: #2e415e;
+    z-index: 0;
+}
+
+.footer-image {
+    background-image: url("../images/WebSiteLogo.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 10rem;
+    width: 10rem;
+    margin-left: 5px;
+}
+
+.footer-string {
+    margin-left: 2rem;
+}
+
+.footer-string h3 {
+    margin: 0 0;
+    padding-bottom: 0.2rem;
+    font-size: 1.8rem;
+}
+
+.footer-string h6 {
+    margin: 0 0;
+    font-size: 1rem;
+}
+
+.footer-string h6 a {
+    color: #000000;
+}
+
+.footer-string ul {
+    padding: 0;
+}
+
+.footer-string ul li {
+    margin-left: 1rem;
+}
+
+.footer-string ul li h6 {
+    margin-bottom: 1.5rem;
+}
