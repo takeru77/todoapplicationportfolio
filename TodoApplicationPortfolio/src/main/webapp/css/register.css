@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+:root {
+    --input-container-set: 25rem;
+}
+
+body {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        max-width: 420px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    height: 7.5rem;
+    background-color: #60718a;
+    padding-left: 1.2rem;
+    padding-right: 7rem;
+    justify-content: space-between;
+}
+
+.header-logo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    width: 5rem;
+    height: 6rem;
+}
+
+.header-logo p {
+    font-size: 3em;
+    margin-left: 0.3em;
+}
+
+.main-visual {
+    padding: 3rem 0 4rem;
+}
+
+.main-visual h1 {
+    text-align: center;
+}
+
+.input-container-set {
+    width: var(--input-container-set);
+    margin: 7rem auto 0;
+}
+
+.input-container:nth-child(n+2) {
+    padding-top: 5rem;
+}
+
+.input-container input {
+    width: var(--input-container-set);
+    box-sizing: border-box;
+    border: none;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #000000;
+    margin-top: 0.8rem;
+    /* ↓ カーソル入力時に枠線が出ないようにする設定 */
+    outline: none;
+}
+
+.input-container p {
+	color: red;
+	margin: 0.5rem 0;
+}
+
+.button-set {
+    text-align: center;
+    margin-top: 7.3rem;
+    margin-bottom: 4rem;
+}
+
+.button-set button {
+    display: inline-block;
+    color: #F3F3F3;
+    background-color: #005989;
+    padding: 1.5rem 0 1.5rem;
+    width: 13rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.button-set button:nth-child(n+2) {
+    margin-top: 4rem;
+}
