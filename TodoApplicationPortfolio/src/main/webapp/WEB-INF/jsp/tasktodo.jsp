@@ -1,3 +1,4 @@
+<%@page import="model.UserAccount"%>
 <%@page import="model.AllTasks"%>
 <%@page import="java.util.List"%>
 <%@ page import="model.AllTasks" %>
@@ -7,6 +8,8 @@ Object allTasksObj = session.getAttribute("alltasks");
 if (allTasksObj instanceof List<?>) {
 	List<AllTasks> todoList = (List<AllTasks>)allTasksObj;
 }
+
+UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 %>
 <!DOCTYPE html>
 <html lang="ja">
