@@ -99,7 +99,7 @@ body {
     line-height: 1.5;
 }
 
-button {
+.button {
     display: block;
     text-align: center;
     margin: 1.3rem auto 0;
@@ -126,4 +126,9 @@ button {
 .plus {
     text-align: center;
     font-size: 3rem;
+    display: block;
+    margin: 0 0;
+    padding: 0 0;
+    text-decoration-line: none;
+    color: #000000;
 }

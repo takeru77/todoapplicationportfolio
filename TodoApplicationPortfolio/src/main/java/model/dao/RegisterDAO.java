@@ -35,6 +35,7 @@ public class RegisterDAO {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("RegisterCheckメソッドが終わりました");
 		return newregires;
 		
 	}
@@ -62,7 +63,7 @@ public class RegisterDAO {
 				pstmt2.setString(2, useraccount.getEmail());
 				pstmt2.setString(3, useraccount.getPassword());
 				
-				int r = pstmt.executeUpdate();
+				int r = pstmt2.executeUpdate();
 				
 				if (r != 0) {
 					newregisterjudge = true;
@@ -82,8 +83,8 @@ public class RegisterDAO {
 	public int Getid(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		int id;
 		
-		String username = useraccount.getUsername();
-		String sql = "SELECT id FROM " + username + ".useraccount WHERE password = ?";
+//		String username = useraccount.getUsername();
+		String sql = "SELECT id FROM public.useraccount WHERE password = ?";
 		String password = useraccount.getPassword();
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
