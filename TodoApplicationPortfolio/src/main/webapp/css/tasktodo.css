@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+:root {
+    --input-container-set: 25rem;
+}
+
+body {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        max-width: 420px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    height: 7.5rem;
+    background-color: #60718a;
+    padding-left: 1.2rem;
+    padding-right: 7rem;
+    justify-content: space-between;
+}
+
+.header-logo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    width: 5rem;
+    height: 6rem;
+}
+
+.header-logo p {
+    font-size: 3em;
+    margin-left: 0.3em;
+}
+
+.main-visual {
+    padding: 3rem 0 4rem;
+}
+
+.main-visual h1 {
+    text-align: center;
+}
+
+.task-todo {
+    width: var(--input-container-set);
+    margin: 7rem auto 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    border-top: solid #000000 1px;
+    border-right: solid #000000 1px;
+    border-left: solid #000000 1px;
+}
+
+.input-container p {
+    margin: 0 0;
+    margin-bottom: 15px;
+}
+
+/* .input-container p:last-of-type {
+    border-bottom: solid #000000 1px;
+} */
+
+.input-container-padding {
+    padding: 16px;
+}
+
+.content-area {
+    margin-bottom: 20px;
+}
+
+.content-area p {
+    align-items: flex-start;
+    margin: 0 0;
+}
+
+.content-area .heading {
+    width: 6rem;
+    text-align: end;
+}
+
+.content-area .content {
+    overflow: hidden;
+    display: -webkit-box;
+    /* ↓ 以下の2つは非推奨。JavaScriptマスター時点で書き換える */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    flex: 1;
+    line-height: 1.5;
+}
+
+button {
+    display: block;
+    text-align: center;
+    margin: 1.3rem auto 0;
+    width: 7rem;
+    height: 3rem;
+}
+
+.input-container-button {
+    margin-top: 2.5rem;
+}
+
+.task-add {
+    border: solid #000000 1px;
+}
+
+.square {
+    border-top: solid #000000 1px;
+    border-bottom: solid #000000 1px;
+    border-right: solid #000000 1px;
+    border-left: solid #000000 1px;
+    margin: 1rem 10.4rem;
+}
+
+.plus {
+    text-align: center;
+    font-size: 3rem;
+}

@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.SchemaNameCheck;
 import model.UserAccount;
 import model.dao.RegisterDAO;
 
@@ -31,6 +33,15 @@ public class RegisterServlet extends HttpServlet {
 		String password = (String)request.getParameter("password");
 		boolean newregires = false;
 		boolean newregisterjudge = false;
+		boolean checkusername = false;
+		
+		checkusername = SchemaNameCheck.startsWithLetter(username);
+		if (!checkusername) {
+			String errorMsg2 = "英文字を先頭にしてください";
+			request.setAttribute("errorMsg2", errorMsg2);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher.forward(request, response);
+		}
 		
 		// とりあえずpasswordの登録可否を検査する
 		RegisterDAO regidao = new RegisterDAO();
@@ -57,13 +68,20 @@ public class RegisterServlet extends HttpServlet {
 		UserAccount useraccount = new UserAccount(username, email, password);
 		try {
 			newregisterjudge = regidao.Register(useraccount);
+			if (newregisterjudge) {
+				int id = regidao.Getid(useraccount);
+				// もしUserAccountDBに格納できたなら、その情報をセッションスコープに保存
+				// この先のtasktodo.jspで使う他のデータベースでその情報が必要になるため
+				HttpSession session = request.getSession();
+				session.setAttribute("useraccount", useraccount);
+				session.setAttribute("useraccountid", id);
+			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		if (newregisterjudge) {
-			response.sendRedirect("WEB-INF/jsp/ファイル名未定");
-		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
