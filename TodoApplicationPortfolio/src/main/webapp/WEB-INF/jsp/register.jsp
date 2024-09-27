@@ -1,8 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-// リクエストスコープからインスタンスを取得
-String errorMsg = (String)request.getAttribute("errorMsg");
+Object spaceErrorMsgobj = request.getAttribute("spaceErrorMsg");
+String spaceErrorMsg = null;
+if (spaceErrorMsgobj instanceof String) {
+	spaceErrorMsg = (String)spaceErrorMsgobj;
+}
+
+Object spaceErrorMsg2obj = request.getAttribute("spaceErrorMsg2");
+String spaceErrorMsg2 = null;
+if (spaceErrorMsg2obj instanceof String) {
+	spaceErrorMsg2 = (String)spaceErrorMsg2obj;
+}
+
+Object spaceErrorMsg3obj = request.getAttribute("spaceErrorMsg3");
+String spaceErrorMsg3 = null;
+if (spaceErrorMsg3obj instanceof String) {
+	spaceErrorMsg3 = (String)spaceErrorMsg3obj;
+}
+
+Object errorMsgobj = request.getAttribute("errorMsg");
+String errorMsg = null;
+if (errorMsgobj instanceof String) {
+	errorMsg = (String)errorMsgobj;
+}
+
+Object errorMsg2obj = request.getAttribute("errorMsg2");
+String errorMsg2 = null;
+if (errorMsg2obj instanceof String) {
+	errorMsg2 = (String)errorMsg2obj;
+}
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -33,17 +60,27 @@ String errorMsg = (String)request.getAttribute("errorMsg");
                         <label for="username">ユーザー名<br>
                         <span>※１文字以上１０文字以下の英数字</span></label><br>
                         <input type="text" id="username" name="username" maxlength="10" minlength="1" pattern="^[a-zA-Z0-9]{1,10}$" required>
+                        <% if (spaceErrorMsg != null) { %>
+                        <p>※<%= spaceErrorMsg %><p>
+                        <% } else if (errorMsg2 != null) { %>
+                        <p>※<%= errorMsg2 %></p>
+                        <% } %>
                     </div>
                     <div class="input-container">
                         <label for="email">メールアドレス<br>
                         <span>※４０文字以下</span></label><br>
                         <input type="text" id="email" name="email" maxlength="40" pattern="^([\w\-._]+@[\w\-._]+\.[A-Za-z]{2,})(\.[A-Za-z]{2}){0,1}?$" required>
+                        <% if (spaceErrorMsg2 != null) { %>
+                        <p>※<%= spaceErrorMsg2 %></p>
+                        <% } %>
                     </div>
                     <div class="input-container">
                         <label for="password">パスワード</label><br>
                         <span>※１２文字以下の英数記号</span></label><br>
                         <input type="text" id="password" name="password" maxlength="12" pattern="^[!-~]{1,12}$">
-                        <% if (errorMsg != null) { %>
+                        <% if (spaceErrorMsg3 != null) { %>
+                        <p>※<%= spaceErrorMsg3 %></p>
+                        <% } else if (errorMsg != null) { %>
                         <p>※<%= errorMsg %></p>
                         <% } %>
                     </div>

@@ -35,7 +35,6 @@ public class RegisterDAO {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("RegisterCheckメソッドが終わりました");
 		return newregires;
 		
 	}
@@ -43,21 +42,9 @@ public class RegisterDAO {
 	public boolean Register(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		// 入力パスワードの登録可否を格納する変数
 		boolean newregisterjudge = false;
-		
-		String name = useraccount.getUsername();
-		String sql = "CREATE SCHEMA " + name;
 		String sql2 = "INSERT INTO public.useraccount (username, email, password) VALUES (?, ?, ?)";
 		
-		try (Connection con = DBConnection.getConnection()) {
-			
-			try (PreparedStatement pstmt = con.prepareStatement(sql);
-				 PreparedStatement pstmt2 = con.prepareStatement(sql2)) {
-				//
-				
-				// もし失敗するとSQLExceptionを返すらしいが、
-				// スキーマ名もチェック済みでエラーが考えられないため、
-				// 戻り値は受け取らないこととした。
-				pstmt.executeUpdate();
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt2 = con.prepareStatement(sql2)) {
 				
 				pstmt2.setString(1, useraccount.getUsername());
 				pstmt2.setString(2, useraccount.getEmail());
@@ -70,20 +57,18 @@ public class RegisterDAO {
 				} else {
 					newregisterjudge = false;
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 			
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 		return newregisterjudge;
+		
 	}
 	
 	public int Getid(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		int id;
 		
-//		String username = useraccount.getUsername();
 		String sql = "SELECT id FROM public.useraccount WHERE password = ?";
 		String password = useraccount.getPassword();
 		

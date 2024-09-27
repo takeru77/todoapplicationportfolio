@@ -60,7 +60,7 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
                 <%--<% } %>--%>
                 <div class="task-add">
                     <div class="square">
-                        <a href="WEB-INF/jsp/newtask.jsp" class="plus">+</a>
+                        <a href="JumpNewTask" class="plus">+</a>
                     </div>
                 </div>
             </div>

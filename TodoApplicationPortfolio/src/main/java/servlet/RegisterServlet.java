@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,79 +8,77 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.SchemaNameCheck;
-import model.UserAccount;
-import model.dao.RegisterDAO;
 
-/**
- * Servlet implementation class RegisterServlet
- */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// 
 //	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 1つ目
 		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher dispatcher;
+		
 		// ユーザー名、メールアドレス、パスワードを取得
-		String username = (String)request.getParameter("username");
-		String email = (String)request.getParameter("email");
-		String password = (String)request.getParameter("password");
-		boolean newregires = false;
-		boolean newregisterjudge = false;
-		boolean checkusername = false;
-		
-		checkusername = SchemaNameCheck.startsWithLetter(username);
-		if (!checkusername) {
-			String errorMsg2 = "英文字を先頭にしてください";
-			request.setAttribute("errorMsg2", errorMsg2);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		// とりあえずpasswordの登録可否を検査する
-		RegisterDAO regidao = new RegisterDAO();
-		try {
-			newregires = regidao.RegisterCheck(password);	
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		// もしnewregiresがfalse、つまり入力したパスワードに重複がある場合、
-		// register.jspに戻る
-		if (!newregires) {
-			// エラーメッセージを格納してregister.jspに戻る
-			String errorMsg = "このパスワードは既に存在します";
-			request.setAttribute("errorMsg", errorMsg);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		// もしnewregiresがtrue、つまり入力したパスワードに重複が無い場合、
-		// それぞれ、ユーザー名、メールアドレス、パスワードをデータベースに
-		// 登録して、新たなページに遷移する
-		
-		UserAccount useraccount = new UserAccount(username, email, password);
-		try {
-			newregisterjudge = regidao.Register(useraccount);
-			if (newregisterjudge) {
-				int id = regidao.Getid(useraccount);
-				// もしUserAccountDBに格納できたなら、その情報をセッションスコープに保存
-				// この先のtasktodo.jspで使う他のデータベースでその情報が必要になるため
-				HttpSession session = request.getSession();
-				session.setAttribute("useraccount", useraccount);
-				session.setAttribute("useraccountid", id);
+		Object usernameobj = request.getParameter("username");
+		String username;
+		if (usernameobj instanceof String) {
+			username = (String)usernameobj;
+			if (username.matches(".*\\s.*")) {
+				username = null;
 			}
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		} else {
+			username = null;
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
-		dispatcher.forward(request, response);
+		Object emailobj = request.getParameter("email");
+		String email;
+		if (emailobj instanceof String) {
+			email = (String)emailobj;
+			if (email.matches(".*\\s.*")) {
+				email = null;
+			}
+		} else {
+			email = null;
+		}
+		
+		Object passwordobj = request.getParameter("password");
+		String password;
+		if (passwordobj instanceof String) {
+			password = (String)passwordobj;
+			if (password.matches(".*\\s.*")) {
+				password = null;
+			}
+		} else {
+			password = null;
+		}
+		
+		if (username == null ||  email == null || password == null) {
+			if (username == null) {
+				String spaceErrorMsg = "文字が未入力または空白文字が含まれています";
+				request.setAttribute("spaceErrorMsg", spaceErrorMsg);
+			} else if (email == null) {
+				String spaceErrorMsg2 = "文字が未入力または空白文字が含まれています";
+				request.setAttribute("spaceErrorMsg2", spaceErrorMsg2);
+			} else if (password == null) {
+				String spaceErrorMsg3 = "文字が未入力または空白文字が含まれています";
+				request.setAttribute("spaceErrorMsg3", spaceErrorMsg3);
+			}
+			// テスト用
+			System.out.println("3つのnullチェックに引っ掛かりました");
+			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			// テスト用
+			System.out.println("3つのnullチェックを抜けました");
+			request.setAttribute("username", username);
+			request.setAttribute("email", email);
+			request.setAttribute("password", password);
+			dispatcher = request.getRequestDispatcher("RegisterServlet2");
+			dispatcher.forward(request, response);
+		}
 	}
-
 }
