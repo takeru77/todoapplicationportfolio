@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class AllTasks implements Serializable {
 	
@@ -10,11 +10,11 @@ public class AllTasks implements Serializable {
 	private String title;
 	// StringBuilderが使い辛ければ、Stringに変える
 	private StringBuilder memo;
-	private Date deadlinedate;
+	private LocalDate deadlinedate;
 	
 	public AllTasks() {}
 	
-	public AllTasks(int userid, int piece, String title, StringBuilder memo, Date deadlinedate) {
+	public AllTasks(int userid, int piece, String title, StringBuilder memo, LocalDate deadlinedate) {
 		//
 		this.userid = userid;
 		this.piece = piece;
@@ -35,6 +35,6 @@ public class AllTasks implements Serializable {
 	public StringBuilder getMemo() { return memo; }
 	public void setMemo(StringBuilder memo) { this.memo = memo; }
 	
-	public Date getDeadlinedate() { return deadlinedate; }
-	public void setDeadlinedate(Date deadlinedate) { this.deadlinedate = deadlinedate; }
+	public LocalDate getDeadlinedate() { return deadlinedate; }
+	public void setDeadlinedate(LocalDate deadlinedate) { this.deadlinedate = deadlinedate; }
 }

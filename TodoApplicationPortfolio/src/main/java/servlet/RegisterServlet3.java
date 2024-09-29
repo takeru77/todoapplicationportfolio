@@ -32,10 +32,8 @@ public class RegisterServlet3 extends HttpServlet {
 		RegisterDAO regidao = new RegisterDAO();
 		try {
 			newregires = regidao.RegisterCheck(password);
-			System.out.println(newregires);
 		} catch (SQLException | ClassNotFoundException e) {
 			// テスト用
-			System.out.println("RegisterCheckに引っかかりました");
 			e.printStackTrace();
 		}
 				
@@ -43,14 +41,12 @@ public class RegisterServlet3 extends HttpServlet {
 		// register.jspに戻る
 		if (!newregires) {
 			// テスト用
-			System.out.println("パスワードチェックに引っかかりました");
 			// エラーメッセージを格納してregister.jspに戻る
 			String errorMsg = "このパスワードは既に存在します";
 			request.setAttribute("errorMsg", errorMsg);
 			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			System.out.println("パスワードチェックを抜けました");
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
 			request.setAttribute("password", password);

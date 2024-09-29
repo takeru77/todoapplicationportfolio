@@ -5,16 +5,19 @@
 <%@ page import="model.AllTasks" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-Object allTasksObj = session.getAttribute("alltasks");
+Object allTasksObj = session.getAttribute("todoList");
 List<AllTasks> todoList;
 if (allTasksObj instanceof List<?>) {
 	todoList = (List<AllTasks>)allTasksObj;
 } else {
-	todoList = new ArrayList<>();
+	todoList = null;
 }
 
 UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 %>
+<%-- else { --%>
+<%-- todoList = new ArrayList<>(); --%>
+<%-- } --%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -39,25 +42,25 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
         <section class="main-visual">
             <h1>タスク一覧</h1>
             <div class="task-todo">
-            	<%--<% if (todoList != null) { %>--%>
-            	<%--<% for (AllTasks todo : todoList) { %>--%>
+            	<% if (todoList != null) { %>
+            	<% for (AllTasks todo : todoList) { %>
                 <div class="input-container">
                     <div class="input-container-padding">
-                        <p class="username">ユーザー名：<span>あ<%--<%= useraccount.getUsername() %>--%></span></p>
+                        <p class="username">ユーザー名：<span><%= useraccount.getUsername() %></span></p>
                         <div class="content-area flex">
                             <p class="heading">内容：</p>
-                            <p class="content">あ<%--<%= todo.getMemo() %>--%></p>
+                            <p class="content"><%= todo.getMemo() %></p>
                         </div>
                         <div class="content-area flex">
                             <p class="heading">期限日：</p>
-                            <p class="dead-line-date">2025-05-23<%--<%= todo.getDeadlinedate() %>--%></p>
+                            <p class="dead-line-date"><%= todo.getDeadlinedate() %></p>
                         </div>
                         <button class="input-container-button button">編集する</button>
                         <button class="button">完了</button>
                     </div>
                 </div>
-                <%--<% } %>--%>
-                <%--<% } %>--%>
+                <% } %>
+                <% } %>
                 <div class="task-add">
                     <div class="square">
                         <a href="JumpNewTask" class="plus">+</a>

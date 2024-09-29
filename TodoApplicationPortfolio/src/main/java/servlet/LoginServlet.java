@@ -9,30 +9,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 
+		// TODO Auto-generated method stub
 //	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1つ目
+		//
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher;
-		
-		// ユーザー名、メールアドレス、パスワードを取得
-		Object usernameobj = request.getParameter("username");
-		String username;
-		if (usernameobj instanceof String) {
-			username = (String)usernameobj;
-			if (username.matches(".*\\s.*")) {
-				username = null;
-			}
-		} else {
-			username = null;
-		}
 		
 		Object emailobj = request.getParameter("email");
 		String email;
@@ -56,27 +44,23 @@ public class RegisterServlet extends HttpServlet {
 			password = null;
 		}
 		
-		if (username == null ||  email == null || password == null) {
-			if (username == null) {
+		if (email == null || password == null) {
+			if (email == null) {
 				String spaceErrorMsg = "文字が未入力または空白文字が含まれています";
 				request.setAttribute("spaceErrorMsg", spaceErrorMsg);
-			} else if (email == null) {
+			} else if (password == null) {
 				String spaceErrorMsg2 = "文字が未入力または空白文字が含まれています";
 				request.setAttribute("spaceErrorMsg2", spaceErrorMsg2);
-			} else if (password == null) {
-				String spaceErrorMsg3 = "文字が未入力または空白文字が含まれています";
-				request.setAttribute("spaceErrorMsg3", spaceErrorMsg3);
 			}
-			// テスト用
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			// テスト用
-			request.setAttribute("username", username);
+			//
 			request.setAttribute("email", email);
 			request.setAttribute("password", password);
-			dispatcher = request.getRequestDispatcher("RegisterServlet2");
+			dispatcher = request.getRequestDispatcher("LoginServlet2");
 			dispatcher.forward(request, response);
 		}
 	}
+
 }

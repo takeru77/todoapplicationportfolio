@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%
+Object errorMsgObj = request.getAttribute("errorMsg");
+String errorMsg;
+if (errorMsgObj instanceof String) {
+	errorMsg = (String)errorMsgObj;
+} else {
+	errorMsg = null;
+}
+%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -31,9 +39,9 @@
                         <input type="text" id="title" name="title" maxlength="15">
                     </div>
                     <div class="input-container">
-                        <label for="content">内容<br>
+                        <label for="memo">内容<br>
                         <span>※１５０文字以内</span></label><br>
-                        <textarea name="content" id="content" cols="42" rows="8"></textarea>
+                        <textarea name="memo" id="memo" cols="42" rows="8"></textarea>
                     </div>
                     <div class="input-container">
                         <label for="deadlinedate">期限日</label><br>
@@ -41,6 +49,9 @@
                     </div>
                 </div>
                 <div class="button-set">
+                	<% if (errorMsg != null) { %>
+                	<p>※<%= errorMsg %></p>
+                	<% } %>
                 <%-- 本来はログイン時のサーブレットファイルに遷移した方が良いが、 --%>
                 <%-- 今は未作成の為とりあえずRegisterServlet4に遷移することとする。 --%>
                     <a href="RegisterServlet4">新規追加せずにタスク一覧に戻る</a><br>

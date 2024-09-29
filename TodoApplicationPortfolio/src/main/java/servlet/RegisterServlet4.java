@@ -50,21 +50,23 @@ public class RegisterServlet4 extends HttpServlet {
 		Object useraccountobj = session.getAttribute("useraccount");
 		if (!(useraccountobj instanceof UserAccount)) {
 			// テスト用
-			System.out.println("useraccount取得段階");
 			try {
 				newregisterjudge = regidao.Register(useraccount);
 				if (newregisterjudge) {
 					int id = regidao.Getid(useraccount);
+					useraccount = new UserAccount(id, username, email, password);
 					// ここでスキーマとそれに対応するalltasksテーブルを作成する
 					tasktododao.Create(useraccount);
+					// tasktodo.jspでタスクを格納するコレクションを用意しておく
+					//List<AllTasks> alltasks = new ArrayList<>();
 					// もしUserAccountDBに格納できたなら、その情報をセッションスコープに保存
 					// この先のtasktodo.jspで使う他のデータベースでその情報が必要になるため
 					session.setAttribute("useraccount", useraccount);
 					session.setAttribute("useraccountid", id);
+					//session.setAttribute("alltasks", alltasks);
 				}
 			} catch (SQLException | ClassNotFoundException e) {
 				// テスト用
-				System.out.println("useraccount取得段階でエラーが起きました");
 				e.printStackTrace();
 			}
 		} else {

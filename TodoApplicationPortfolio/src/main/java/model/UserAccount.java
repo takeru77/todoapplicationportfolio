@@ -4,16 +4,26 @@ import java.io.Serializable;
 
 public class UserAccount implements Serializable {
 	
+	private int id;
 	private String username;
 	private String email;
 	private String password;
 	
 	public UserAccount() {}
+	public UserAccount(int id, String username, String email, String password) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 	public UserAccount(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 	}
+	
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
 	
 	public String getUsername() { return username; }
 	public void setUsername(String username) { this.username = username; }

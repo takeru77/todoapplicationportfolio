@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+Object spaceErrorMsgobj = request.getAttribute("spaceErrorMsg");
+String spaceErrorMsg = null;
+if (spaceErrorMsgobj instanceof String) {
+	spaceErrorMsg = (String)spaceErrorMsgobj;
+}
+
+Object spaceErrorMsg2obj = request.getAttribute("spaceErrorMsg2");
+String spaceErrorMsg2 = null;
+if (spaceErrorMsg2obj instanceof String) {
+	spaceErrorMsg2 = (String)spaceErrorMsg2obj;
+}
+%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

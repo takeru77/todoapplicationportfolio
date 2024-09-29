@@ -30,13 +30,11 @@ public class RegisterServlet2 extends HttpServlet {
 		checkusername = SchemaNameCheck.startsWithLetter(username);
 		if (!checkusername) {
 			// テスト用
-			System.out.println("usernameチェックに引っかかりました");
 			String errorMsg2 = "英文字を先頭にしてください";
 			request.setAttribute("errorMsg2", errorMsg2);
 			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
 		    dispatcher.forward(request, response);
 		} else {
-			System.out.println("usernameチェックを抜けました");
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
 			request.setAttribute("password", password);
