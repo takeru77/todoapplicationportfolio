@@ -42,11 +42,17 @@ if (spaceErrorMsg2obj instanceof String) {
                         <label for="email">メールアドレス<br>
                         <span>※４０文字以下</span></label><br>
                         <input type="text" id="email" name="email" maxlength="40" pattern="^([\w\-._]+@[\w\-._]+\.[A-Za-z]{2,})(\.[A-Za-z]{2}){0,1}?$" required>
+                        <% if (spaceErrorMsg != null) { %>
+                        <p>※<%= spaceErrorMsg %></p>
+                        <% } %>
                     </div>
                     <div class="input-container">
                         <label for="password">パスワード</label><br>
                         <span>※１２文字以下の英数記号</span></label><br>
                         <input type="text" id="password" name="password" maxlength="12" pattern="^[!-~]{1,12}$" required>
+                        <% if (spaceErrorMsg2 != null) { %>
+                        <p>※<%= spaceErrorMsg2 %></p>
+                        <% } %>
                     </div>
                 </div>
                 <div class="button-set">
