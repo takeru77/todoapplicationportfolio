@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.AllTasks;
@@ -59,8 +61,32 @@ public class LoginDAO {
 		return useraccount;
 	}
 	
-	public List<AllTasks> GetAllTasks(int id) throws SQLException, ClassNotFoundException {
+	public List<AllTasks> GetAllTasks(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		//
-		String sql = "";
+		Integer id = useraccount.getId();
+		String userid = id.toString();
+		AllTasks alltasks = new AllTasks();
+		List<AllTasks> todoList = new ArrayList<>();
+		
+		String sql = "SELECT userid, piece, title, memo, deadlinedate FROM " + useraccount.getUsername() + userid + ".alltasks";
+		
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			//
+			ResultSet res = pstmt.executeQuery();
+			
+			while (res.next()) {
+				//
+				alltasks.setUserid(res.getInt("userid"));
+				alltasks.setPiece(res.getInt("piece"));
+				alltasks.setTitle(res.getString("title"));
+				alltasks.setMemo(new StringBuilder(res.getString("memo")));
+				java.sql.Date sqlDate = res.getDate("deadlinedate");
+				LocalDate localDate = sqlDate.toLocalDate();
+				alltasks.setDeadlinedate(localDate);
+				
+				todoList.add(alltasks);
+			}
+		}
+		return todoList;
 	}
 }

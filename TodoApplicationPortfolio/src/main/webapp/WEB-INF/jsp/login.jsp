@@ -12,6 +12,8 @@ String spaceErrorMsg2 = null;
 if (spaceErrorMsg2obj instanceof String) {
 	spaceErrorMsg2 = (String)spaceErrorMsg2obj;
 }
+
+String falseInput = request.getAttribute("falseInput");
 %>
 <!DOCTYPE html>
 <html lang="ja">

@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.AllTasks;
 import model.UserAccount;
 import model.dao.LoginDAO;
 
@@ -41,24 +44,39 @@ public class LoginServlet2 extends HttpServlet {
 			try {
 				//
 				useraccount = logindao.GetUserAccount(password);
-				if (useraccount == null) {
-					System.out.println("LoginServlet2でuseraccountが取得できません");
-					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-					dispatcher.forward(request, response);
-				} else {
-					HttpSession session = request.getSession();
-					session.setAttribute("useraccount", useraccount);
-					session.setAttribute("useraccountid", useraccount.getId());
-					
-					// alltasksデータベースから情報を取り出さなければならない
-					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
-					dispatcher.forward(request, response);
-				}
 			} catch (SQLException | ClassNotFoundException e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+			if (useraccount == null) {
+				System.out.println("LoginServlet2でuseraccountが取得できません");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("useraccount", useraccount);
+				session.setAttribute("useraccountid", useraccount.getId());
+				
+				// alltasksデータベースから情報を取り出さなければならない
+				List<AllTasks> todoList = new ArrayList<>();
+				try {
+					//
+					todoList = logindao.GetAllTasks(useraccount);
+				} catch (SQLException | ClassNotFoundException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				
+				session.setAttribute("todoList", todoList);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+				dispatcher.forward(request, response);
+			}
+		} else {
+			String falseInput = "メールアドレスまたはパスワードが違います";
+			request.setAttribute("falseInput", falseInput);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
