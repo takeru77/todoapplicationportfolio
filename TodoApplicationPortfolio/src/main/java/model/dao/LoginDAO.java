@@ -20,8 +20,10 @@ public class LoginDAO {
 		
 		String sql = "SELECT email, password FROM public.useraccount WHERE email = ? AND password = ?";
 		
+		System.out.println("データベースに接続します");
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			//
+			System.out.println("データベースに接続しました");
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
 			
@@ -63,19 +65,29 @@ public class LoginDAO {
 	
 	public List<AllTasks> GetAllTasks(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		//
+		System.out.println("GetAllTasksに入りました");
 		Integer id = useraccount.getId();
 		String userid = id.toString();
+		System.out.println("useridを取得しました");
+		// AllTasks.javaファイルで新しい変数宣言をしたため、
+		// その変数のスコープから取得できないためNullが発生し、
+		// エラーが発生した。
 		AllTasks alltasks = new AllTasks();
 		List<AllTasks> todoList = new ArrayList<>();
+		
+		System.out.println(useraccount.getUsername());
+		System.out.println(userid);
 		
 		String sql = "SELECT userid, piece, title, memo, deadlinedate FROM " + useraccount.getUsername() + userid + ".alltasks";
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			//
+			System.out.println("GetAllTasksのtryに入りました");
 			ResultSet res = pstmt.executeQuery();
-			
+			System.out.println("ResultSetが終わりました");
 			while (res.next()) {
 				//
+				System.out.println("GetAllTasksのwhile文に入りました");
 				alltasks.setUserid(res.getInt("userid"));
 				alltasks.setPiece(res.getInt("piece"));
 				alltasks.setTitle(res.getString("title"));
@@ -83,10 +95,11 @@ public class LoginDAO {
 				java.sql.Date sqlDate = res.getDate("deadlinedate");
 				LocalDate localDate = sqlDate.toLocalDate();
 				alltasks.setDeadlinedate(localDate);
-				
+				System.out.println("alltasksへ変数を渡しました");
 				todoList.add(alltasks);
 			}
 		}
+		System.out.println("todoListが終わりました");
 		return todoList;
 	}
 }

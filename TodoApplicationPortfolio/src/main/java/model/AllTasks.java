@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AllTasks implements Serializable {
 	
@@ -14,6 +15,10 @@ public class AllTasks implements Serializable {
 	
 	public AllTasks() {}
 	
+	public AllTasks(int piece) {
+		this.piece = piece;
+	}
+	
 	public AllTasks(int userid, int piece, String title, StringBuilder memo, LocalDate deadlinedate) {
 		//
 		this.userid = userid;
@@ -22,6 +27,7 @@ public class AllTasks implements Serializable {
 		this.memo = memo;
 		this.deadlinedate = deadlinedate;
 	}
+	
 	
 	public int getUserid() { return userid; }
 	public void setUserid(int userid) { this.userid = userid; }
@@ -37,4 +43,36 @@ public class AllTasks implements Serializable {
 	
 	public LocalDate getDeadlinedate() { return deadlinedate; }
 	public void setDeadlinedate(LocalDate deadlinedate) { this.deadlinedate = deadlinedate; }
+	
+	public String toString() {
+		String useridString = String.valueOf(userid);
+		String pieceString = String.valueOf(piece);
+		String memoString;
+		if (memo != null) {
+			memoString = memo.toString();
+		} else {
+			memoString = "";
+		}
+		String deadlinedateString;
+		if (deadlinedate != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			deadlinedateString = deadlinedate.format(formatter);
+		} else {
+			deadlinedateString = "";
+		}
+		return "userid:" + useridString + " piece:" + pieceString + " title:" + title + " memo:" + memoString + " deadlinedate:" + deadlinedateString;
+	}
+	// AllTasksのtitleにはnullは入らないようになっているはず。
+	// だが、もしエラーが出た場合はここも疑ってみる。
+	
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (o == null) return false;
+		if (!(o instanceof AllTasks)) return false;
+		AllTasks alltasks = (AllTasks)o;
+		if (!(this.piece == alltasks.piece)) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -49,8 +49,14 @@ body {
     text-align: center;
 }
 
+.main-visual p {
+	margin-top: 3.6rem;
+	text-align: center;
+	color: red;
+}
+
 .main-visual form {
-	margin-top: 7rem;
+	margin-top: 3.6rem;
 }
 
 .input-container-set {

@@ -58,6 +58,10 @@ public class TaskTodoDAO {
 			while (res.next()) {
 				countrecords += 1;
 			}
+			
+			if (countrecords == 0) {
+				countrecords +=1;
+			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -41,7 +41,7 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
         </header>
         <section class="main-visual">
             <h1>タスク一覧</h1>
-            <div class="task-todo">
+            <form class="task-todo" action="?" method="get">
             	<% if (todoList != null) { %>
             	<% for (AllTasks todo : todoList) { %>
                 <div class="input-container">
@@ -55,7 +55,7 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
                             <p class="heading">期限日：</p>
                             <p class="dead-line-date"><%= todo.getDeadlinedate() %></p>
                         </div>
-                        <button class="input-container-button button">編集する</button>
+                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value=<%= todo.getPiece() %>>編集する</button>
                         <button class="button">完了</button>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
                         <a href="JumpNewTask" class="plus">+</a>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     </body>
 </html>

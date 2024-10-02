@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+:root {
+    --input-container-set: 25rem;
+}
+
+body {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        max-width: 420px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    height: 7.5rem;
+    background-color: #60718a;
+    padding-left: 1.2rem;
+    padding-right: 7rem;
+    justify-content: space-between;
+}
+
+.header-logo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    width: 5rem;
+    height: 6rem;
+}
+
+.header-logo p {
+    font-size: 3em;
+    margin-left: 0.3em;
+}
+
+.main-visual {
+    padding: 3rem 0 4rem;
+}
+
+.main-visual h1 {
+    text-align: center;
+}
+
+.main-visual form {
+    margin-top: 7rem;
+}
+
+.input-container-set {
+    width: var(--input-container-set);
+    margin: 0 auto;
+}
+
+.input-container:nth-child(n+2) {
+    margin-top: 5rem;
+}
+
+.input-container input {
+    width: var(--input-container-set);
+    box-sizing: border-box;
+    padding-bottom: 0.3rem;
+    border: 1px solid #000000;
+    margin-top: 0.6rem;
+}
+
+#memo {
+	margin-top: 0.6rem;
+}
+
+#content {
+    width: var(--input-container-set);
+}
+
+.button-set {
+    text-align: center;
+    margin-top: 2.9rem;
+    margin-bottom: 4rem;
+}
+
+.button-set p {
+	margin-bottom: 2.9rem;
+	color: red;
+}
+
+.button-set button {
+    display: block;
+    color: #F3F3F3;
+    background-color: #005989;
+    padding: 1.5rem 0 1.5rem;
+    margin: 6rem auto 0;
+    width: 13rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.button-set button:nth-of-type(n+2) {
+    margin-top: 4rem;
+}

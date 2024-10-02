@@ -32,12 +32,14 @@ public class LoginServlet2 extends HttpServlet {
 		
 		LoginDAO logindao = new LoginDAO();
 		
+		System.out.println("データベースに接続します");
 		try {
 			loginResult = logindao.LoginCheck(email, password);
 		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println("データベースに接続できません");
 			e.printStackTrace();
 		}
-		
+		System.out.println("データベースが終わりました");
 		if (loginResult) {
 			//
 			UserAccount useraccount = new UserAccount();
@@ -48,17 +50,20 @@ public class LoginServlet2 extends HttpServlet {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+			System.out.println("ユーザーアカウントを取得しました");
 			if (useraccount == null) {
 				System.out.println("LoginServlet2でuseraccountが取得できません");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 				dispatcher.forward(request, response);
 			} else {
+				System.out.println("useraccountはnullではありませんでした");
 				HttpSession session = request.getSession();
 				session.setAttribute("useraccount", useraccount);
 				session.setAttribute("useraccountid", useraccount.getId());
 				
 				// alltasksデータベースから情報を取り出さなければならない
 				List<AllTasks> todoList = new ArrayList<>();
+				System.out.println("GetAllTasksに入ります");
 				try {
 					//
 					todoList = logindao.GetAllTasks(useraccount);
@@ -68,7 +73,7 @@ public class LoginServlet2 extends HttpServlet {
 				}
 				
 				session.setAttribute("todoList", todoList);
-				
+				System.out.println("todoListをセッションスコープに渡しました");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
 				dispatcher.forward(request, response);
 			}

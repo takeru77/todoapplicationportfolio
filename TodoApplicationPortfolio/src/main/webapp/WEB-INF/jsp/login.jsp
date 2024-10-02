@@ -13,7 +13,11 @@ if (spaceErrorMsg2obj instanceof String) {
 	spaceErrorMsg2 = (String)spaceErrorMsg2obj;
 }
 
-String falseInput = request.getAttribute("falseInput");
+Object falseInputobj = request.getAttribute("falseInput");
+String falseInput = null;
+if (falseInputobj instanceof String) {
+	falseInput = (String)falseInputobj;
+}
 %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -38,6 +42,9 @@ String falseInput = request.getAttribute("falseInput");
         </header>
         <section class="main-visual">
             <h1>ログイン</h1>
+            <% if (falseInput != null) { %>
+            <p>※<%= falseInput %></p>
+            <% } %>
             <form action="?" method="post">
                 <div class="input-container-set">
                     <div class="input-container">
