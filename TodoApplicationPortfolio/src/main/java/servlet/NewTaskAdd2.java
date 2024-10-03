@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -30,7 +31,7 @@ public class NewTaskAdd2 extends HttpServlet {
 		
 		String title = (String)request.getAttribute("title");
 		StringBuilder memo = (StringBuilder)request.getAttribute("memo");
-		LocalDate deadlinedate = (LocalDate)request.getAttribute("deadlinedate");
+		Optional<LocalDate> deadlinedate = (Optional<LocalDate>)request.getAttribute("deadlinedate");
 		int nextpiece = (int)request.getAttribute("nextpiece");
 		TaskTodoDAO tasktododao = new TaskTodoDAO();
 		AllTasks alltasks = new AllTasks();

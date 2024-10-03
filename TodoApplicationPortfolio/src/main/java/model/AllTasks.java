@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class AllTasks implements Serializable {
 	
@@ -11,21 +12,23 @@ public class AllTasks implements Serializable {
 	private String title;
 	// StringBuilderが使い辛ければ、Stringに変える
 	private StringBuilder memo;
-	private LocalDate deadlinedate;
+	private Optional<LocalDate> deadlinedate;
 	
-	public AllTasks() {}
+	public AllTasks() {
+		this.deadlinedate = Optional.ofNullable(null);
+	}
 	
 	public AllTasks(int piece) {
 		this.piece = piece;
 	}
 	
-	public AllTasks(int userid, int piece, String title, StringBuilder memo, LocalDate deadlinedate) {
+	public AllTasks(int userid, int piece, String title, StringBuilder memo, Optional<LocalDate> deadlinedate) {
 		//
 		this.userid = userid;
 		this.piece = piece;
 		this.title = title;
 		this.memo = memo;
-		this.deadlinedate = deadlinedate;
+		this.deadlinedate = deadlinedate;			
 	}
 	
 	
@@ -41,8 +44,17 @@ public class AllTasks implements Serializable {
 	public StringBuilder getMemo() { return memo; }
 	public void setMemo(StringBuilder memo) { this.memo = memo; }
 	
-	public LocalDate getDeadlinedate() { return deadlinedate; }
-	public void setDeadlinedate(LocalDate deadlinedate) { this.deadlinedate = deadlinedate; }
+//	public Optional<LocalDate> getDeadlinedate() { return deadlinedate; }
+	
+	public Optional<LocalDate> getDeadlinedate() {
+		if (deadlinedate == null) {
+			return Optional.empty();
+		}
+		LocalDate localDate = deadlinedate.get();
+		return Optional.ofNullable(localDate);
+	}
+	
+	public void setDeadlinedate(Optional<LocalDate> deadlinedate) { this.deadlinedate = deadlinedate; }
 	
 	public String toString() {
 		String useridString = String.valueOf(userid);
@@ -54,9 +66,10 @@ public class AllTasks implements Serializable {
 			memoString = "";
 		}
 		String deadlinedateString;
-		if (deadlinedate != null) {
+		if (deadlinedate.isPresent()) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			deadlinedateString = deadlinedate.format(formatter);
+			LocalDate deadlinelocaldate = deadlinedate.get();
+			deadlinedateString = deadlinelocaldate.format(formatter);
 		} else {
 			deadlinedateString = "";
 		}

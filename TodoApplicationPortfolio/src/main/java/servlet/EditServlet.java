@@ -30,6 +30,8 @@ public class EditServlet extends HttpServlet {
 		
 		AllTasks purposeTask = todoList.get(todoListnumber);
 		
+		
+		request.setAttribute("todoListnumber", todoListnumber);
 		request.setAttribute("purposeTask", purposeTask);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");

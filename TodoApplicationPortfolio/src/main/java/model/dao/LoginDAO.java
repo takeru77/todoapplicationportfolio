@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import model.AllTasks;
 import model.DBConnection;
@@ -72,7 +73,8 @@ public class LoginDAO {
 		// AllTasks.javaファイルで新しい変数宣言をしたため、
 		// その変数のスコープから取得できないためNullが発生し、
 		// エラーが発生した。
-		AllTasks alltasks = new AllTasks();
+//		AllTasks alltasks = new AllTasks();
+//		↑場所を変更する
 		List<AllTasks> todoList = new ArrayList<>();
 		
 		System.out.println(useraccount.getUsername());
@@ -85,20 +87,34 @@ public class LoginDAO {
 			System.out.println("GetAllTasksのtryに入りました");
 			ResultSet res = pstmt.executeQuery();
 			System.out.println("ResultSetが終わりました");
+			int syuukaisuu = 0;
 			while (res.next()) {
 				//
+				AllTasks alltasks = new AllTasks();
 				System.out.println("GetAllTasksのwhile文に入りました");
 				alltasks.setUserid(res.getInt("userid"));
 				alltasks.setPiece(res.getInt("piece"));
 				alltasks.setTitle(res.getString("title"));
 				alltasks.setMemo(new StringBuilder(res.getString("memo")));
 				java.sql.Date sqlDate = res.getDate("deadlinedate");
-				LocalDate localDate = sqlDate.toLocalDate();
-				alltasks.setDeadlinedate(localDate);
-				System.out.println("alltasksへ変数を渡しました");
+				if (sqlDate == null) {
+//					Optional<LocalDate> nulldate = null;
+					alltasks.setDeadlinedate(null);
+				} else {
+					LocalDate localDate = sqlDate.toLocalDate();
+					Optional<LocalDate> date = Optional.ofNullable(localDate);
+					alltasks.setDeadlinedate(date);
+				}
+				
+				System.out.println("渡したalltasks " + alltasks.getPiece() + " " + alltasks.getPiece() + " " + alltasks.getTitle());
 				todoList.add(alltasks);
+				System.out.println(todoList.get(syuukaisuu).getPiece());
+				++syuukaisuu;
 			}
 		}
+		System.out.println("try終了後");
+		System.out.println(todoList.get(0).getPiece());
+		System.out.println(todoList.get(1).getPiece());
 		System.out.println("todoListが終わりました");
 		return todoList;
 	}

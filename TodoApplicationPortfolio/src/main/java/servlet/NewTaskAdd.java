@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -25,6 +26,7 @@ public class NewTaskAdd extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//
+		System.out.println("NewTaskAddに入りました");
 		request.setCharacterEncoding("UTF-8");
 		
 		Object titleobj = request.getParameter("title");
@@ -54,30 +56,41 @@ public class NewTaskAdd extends HttpServlet {
 			deadlinedatestring = "";
 		}
 		
-		LocalDate deadlinedate;
+		Optional<LocalDate> deadlinedate;
 		DateValidator stringToLocalDate = new DateValidator();
 		boolean localDateResult = stringToLocalDate.isValidDate(deadlinedatestring);
-		
+		System.out.println("DateValidatorが終わりました");
 		if (localDateResult) {
 			//
-			deadlinedate = LocalDate.parse(deadlinedatestring);
+			try {
+				deadlinedate = Optional.ofNullable(LocalDate.parse(deadlinedatestring));				
+			} catch (Exception e) {
+				System.out.println("NewTaskAdd catch Exception");
+				deadlinedate = null;
+			}
+			System.out.println("deadlinedateをOptional型へ変換しました");
 			HttpSession session = request.getSession();
 			UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 			TaskTodoDAO tasktododao = new TaskTodoDAO();
 			int countrecords = 0;
+			System.out.println("countrecordの手前まで来ました");
 			try {
 				countrecords = tasktododao.RecordCount(useraccount);
 			} catch (SQLException | ClassNotFoundException e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			
+			System.out.println("countrecordの条件式の手前まで来ました");
 			if (countrecords < 20) {
-				int nextpiece = countrecords++;
+				// countrecords++であるとnextpieceに格納された後に、
+				// countrecordsがインクリメントされてしまう。
+				int nextpiece = ++countrecords;
+				System.out.println("nextpieceは" + nextpiece);
 				request.setAttribute("title", title);
 				request.setAttribute("memo", memo);
 				request.setAttribute("deadlinedate", deadlinedate);
 				request.setAttribute("nextpiece", nextpiece);
+				System.out.println("NewTaskAddで画面遷移します");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("NewTaskAdd2");
 				dispatcher.forward(request, response);
 			} else {

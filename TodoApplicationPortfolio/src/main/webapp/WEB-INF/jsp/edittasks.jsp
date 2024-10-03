@@ -1,9 +1,27 @@
-<%@page import="model.AllTasks"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.AllTasks" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.UserAccount" %>
+<%@ page import="model.AllTasks" %>
+<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<%
-AllTasks alltasks = (AllTasks)request.getAttribute("purposeTask");
-%>
+<% AllTasks purposeTask = (AllTasks)request.getAttribute("purposeTask");%>
+<% Optional<LocalDate> todos = purposeTask.getDeadlinedate(); %>
+<% LocalDate ld = todos.orElse(LocalDate.MAX); %>
+<% String localDateString = ""; %>
+<% if (ld.equals(LocalDate.MAX)) { %>
+<% localDateString = ""; %>
+<% } else { %>
+<% localDateString = ld.toString(); %>
+<% } %>
+
+<% int todoListnum = (int)request.getAttribute("todoListnumber"); %>
+<% Integer ite = todooListnum; %>
+<% String todoListnumber = ite.toString(); %>
+
+<% String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -40,14 +58,17 @@ AllTasks alltasks = (AllTasks)request.getAttribute("purposeTask");
                     </div>
                     <div class="input-container">
                         <label for="deadlinedate">期限日</label><br>
-                        <input type="date" id="deadlinedate" name="deadlinedate" maxlength="12" pattern="^[!-~]{1,12}$" value="<%= alltasks.getDeadlinedate() %>">
+                        <input type="date" id="deadlinedate" name="deadlinedate" maxlength="12" pattern="^[!-~]{1,12}$" value="<%= localDateString %>">
                     </div>
                 </div>
+                <input type="hidden" name="todoListnumber" value="<%= todoListnumber %>">
                 <div class="button-set">
-                	<p>※正しい形式で入力してください</p>
+                	<% if (errorMsg != null) { %>
+                	<p>※<%= errorMsg %></p>
+                	<% } %>
                     <a href="RegisterServlet4">編集せずにタスク一覧に戻る</a><br>
                     <!-- <button type="submit" formaction="RegisterServlet">新規登録する</button><br> -->
-                    <button type="submit" formaction="NewTaskAdd">編集完了</button>
+                    <button type="submit" formaction="EditRegServlet">編集完了</button>
                     <button type="submit" formaction="index.html" formnovalidate>このタスクを削除</button>
                 </div>
             </form>

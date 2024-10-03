@@ -1,7 +1,9 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="model.UserAccount"%>
-<%@page import="model.AllTasks"%>
-<%@page import="java.util.List"%>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.UserAccount" %>
+<%@ page import="model.AllTasks" %>
+<%@ page import="java.util.List" %>
 <%@ page import="model.AllTasks" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
@@ -44,6 +46,14 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
             <form class="task-todo" action="?" method="get">
             	<% if (todoList != null) { %>
             	<% for (AllTasks todo : todoList) { %>
+            	<% Optional<LocalDate> todos = todo.getDeadlinedate(); %>
+            	<% LocalDate ld = todos.orElse(LocalDate.MAX); %>
+            	<% String localDateString = ""; %>
+            	<% if (ld.equals(LocalDate.MAX)) { %>
+            	<% 	 localDateString = ""; %>
+            	<% } else { %>
+            	<%   localDateString = ld.toString(); %>
+            	<% } %>
                 <div class="input-container">
                     <div class="input-container-padding">
                         <p class="username">ユーザー名：<span><%= useraccount.getUsername() %></span></p>
@@ -53,7 +63,8 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
                         </div>
                         <div class="content-area flex">
                             <p class="heading">期限日：</p>
-                            <p class="dead-line-date"><%= todo.getDeadlinedate() %></p>
+                            <%-- 3項演算子 条件式 ? 真の値 : 偽の値 の場合、真の値と偽の値は同じ型でなくてはならない --%>
+                        	<p class="dead-line-date"><%= localDateString %></p>
                         </div>
                         <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value=<%= todo.getPiece() %>>編集する</button>
                         <button class="button">完了</button>

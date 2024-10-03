@@ -1,11 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import model.AllTasks;
 import model.DBConnection;
@@ -59,9 +59,9 @@ public class TaskTodoDAO {
 				countrecords += 1;
 			}
 			
-			if (countrecords == 0) {
-				countrecords +=1;
-			}
+//			if (countrecords == 0) {
+//				countrecords += 1;
+//			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -71,7 +71,7 @@ public class TaskTodoDAO {
 	
 	
 	
-	public AllTasks TaskAdd(UserAccount useraccount, int nextpiece, String title, StringBuilder memo, LocalDate deadlinedate) throws SQLException, ClassNotFoundException {
+	public AllTasks TaskAdd(UserAccount useraccount, int nextpiece, String title, StringBuilder memo, Optional<LocalDate> deadlinedate) throws SQLException, ClassNotFoundException {
 		//
 		Integer idstring = useraccount.getId();
 		String getId = idstring.toString();
@@ -87,7 +87,8 @@ public class TaskTodoDAO {
 			pstmt.setInt(2, nextpiece);
 			pstmt.setString(3, title);
 			pstmt.setString(4, memo.toString());
-			pstmt.setObject(5, Date.valueOf(deadlinedate));
+//			pstmt.setObject(5, Date.valueOf(deadlinedate));
+			pstmt.setObject(5, deadlinedate);
 			
 			int r = pstmt.executeUpdate();
 			
