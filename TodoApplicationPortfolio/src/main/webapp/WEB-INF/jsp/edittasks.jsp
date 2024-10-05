@@ -5,6 +5,7 @@
 <%@ page import="model.UserAccount" %>
 <%@ page import="model.AllTasks" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.lang.Integer" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <% AllTasks purposeTask = (AllTasks)request.getAttribute("purposeTask");%>
@@ -18,8 +19,12 @@
 <% } %>
 
 <% int todoListnum = (int)request.getAttribute("todoListnumber"); %>
-<% Integer ite = todooListnum; %>
+<% Integer ite = Integer.valueOf(todoListnum); %>
 <% String todoListnumber = ite.toString(); %>
+
+<% int pieceNumber = (int)request.getAttribute("pieceNumber"); %>
+<% Integer ite2 = Integer.valueOf(pieceNumber); %>
+<% String pieceNumberString = ite2.toString(); %>
 
 <% String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <html lang="ja">
@@ -49,12 +54,12 @@
                     <div class="input-container">
                         <label for="title">タイトル<br>
                         <span>※１５文字以内</span></label><br>
-                        <input type="text" id="title" name="title" maxlength="15" value="<%= alltasks.getTitle() %>">
+                        <input type="text" id="title" name="title" maxlength="15" value="<%= purposeTask.getTitle() %>">
                     </div>
                     <div class="input-container">
                         <label for="memo">内容<br>
                         <span>※１５０文字以内</span></label><br>
-                        <textarea name="memo" id="memo" cols="42" rows="8"><%= alltasks.getMemo() %></textarea>
+                        <textarea name="memo" id="memo" cols="42" rows="8"><%= purposeTask.getMemo() %></textarea>
                     </div>
                     <div class="input-container">
                         <label for="deadlinedate">期限日</label><br>
@@ -62,6 +67,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="todoListnumber" value="<%= todoListnumber %>">
+                <input type="hidden" name="pieceNumberString" value="<%= pieceNumberString %>">
                 <div class="button-set">
                 	<% if (errorMsg != null) { %>
                 	<p>※<%= errorMsg %></p>
@@ -69,7 +75,7 @@
                     <a href="RegisterServlet4">編集せずにタスク一覧に戻る</a><br>
                     <!-- <button type="submit" formaction="RegisterServlet">新規登録する</button><br> -->
                     <button type="submit" formaction="EditRegServlet">編集完了</button>
-                    <button type="submit" formaction="index.html" formnovalidate>このタスクを削除</button>
+                    <button type="submit" formaction="DeleteTask" formnovalidate>このタスクを削除</button>
                 </div>
             </form>
         </section>

@@ -61,6 +61,7 @@ int piece = 0;
             	<% stringbuilder = todo.getMemo(); %>
             	<% memo = stringbuilder.toString(); %>
             	<% piece = todo.getPiece(); %>
+            	<% deadlinedate = todo.getDeadlinedate(); %>
             	<% try { %>
             	<% localDate = deadlinedate.get(); %>
             	<% localDateString = localDate.toString(); %>

@@ -87,10 +87,6 @@ public class TaskTodoDAO {
 		
 		LocalDate ld;
 		
-		if (deadlinedate == null) {
-			//
-		}
-		
 		String sql = "INSERT INTO " + useraccount.getUsername() + "_" + getId + ".alltasks (userid, piece, title, memo, deadlinedate) VALUES (?, ?, ?, ?, ?)";
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -105,7 +101,8 @@ public class TaskTodoDAO {
 				//
 				pstmt.setObject(5, null);
 			} else {
-				pstmt.setObject(5, deadlinedate);
+				ld = deadlinedate.get();
+				pstmt.setObject(5, ld);
 			}
 			
 			int r = pstmt.executeUpdate();
@@ -124,6 +121,42 @@ public class TaskTodoDAO {
 			e.printStackTrace();
 		}
 		return alltasks;
+	}
+	
+	public boolean TaskUpdate(UserAccount useraccount, int pieceNumber, String title, StringBuilder memo, Optional<LocalDate> deadlinedate) throws SQLException, ClassNotFoundException {
+		//
+		boolean updateResult = false;
+		Integer idstring = useraccount.getId();
+		String getId = idstring.toString();
+		
+		LocalDate ld;
+		
+		String sql = "UPDATE " + useraccount.getUsername() + "_" + getId + ".alltasks SET title =  ?, memo = ?, deadlinedate = ? WHERE piece = ?";
+		// pieceNumberは検索するため主にWHEREで使う
+		// SETするのはtitle、memo、deadlinedateをセットしなおす、つまり更新をする。
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			//
+			pstmt.setString(1, title);
+			pstmt.setString(2, memo.toString());
+			if (deadlinedate == null) {
+				pstmt.setObject(3, null);
+			} else {
+				ld = deadlinedate.get();
+				pstmt.setObject(3, ld);
+			}
+			pstmt.setInt(4, pieceNumber);
+			
+			int r = pstmt.executeUpdate();
+			
+			if (r != 0) {
+				updateResult = true;
+			} else {
+				updateResult = false;
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return updateResult;
 	}
 }
 

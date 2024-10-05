@@ -22,6 +22,7 @@ public class EditServlet extends HttpServlet {
 		List<AllTasks> todoList = (List<AllTasks>)session.getAttribute("todoList");
 		
 		String Number = (String)request.getParameter("edit");
+		System.out.println("EditServletのNumberは" + Number);
 		int pieceNumber = Integer.parseInt(Number);
 		//
 		AllTasks test = new AllTasks(pieceNumber);
@@ -33,6 +34,7 @@ public class EditServlet extends HttpServlet {
 		
 		request.setAttribute("todoListnumber", todoListnumber);
 		request.setAttribute("purposeTask", purposeTask);
+		request.setAttribute("pieceNumber", pieceNumber);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");
 		dispatcher.forward(request, response);

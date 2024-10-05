@@ -51,6 +51,7 @@ public class EditRegServlet extends HttpServlet {
 		boolean localDateResult = stringToLocalDate.isValidDate(deadlinedatestring);
 		
 		Object todoListnumber = request.getParameter("todoListnumber");
+		Object pieceNumber = request.getParameter("pieceNumberString");
 		
 		if (localDateResult) {
 			//
@@ -65,6 +66,10 @@ public class EditRegServlet extends HttpServlet {
 			request.setAttribute("memo", memo);
 			request.setAttribute("deadlinedate", deadlinedate);
 			request.setAttribute("todoListnumber", todoListnumber);
+			request.setAttribute("pieceNumber", pieceNumber);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("EditRegServlet2");
+			dispatcher.forward(request, response);
 			
 		} else {
 			//
