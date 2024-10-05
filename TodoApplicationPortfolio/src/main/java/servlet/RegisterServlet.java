@@ -30,6 +30,9 @@ public class RegisterServlet extends HttpServlet {
 			if (username.matches(".*\\s.*")) {
 				username = null;
 			}
+			if (!(username.matches("^[a-zA-Z0-9]{1,10}$"))) {
+				username = null;
+			}
 		} else {
 			username = null;
 		}
@@ -39,6 +42,9 @@ public class RegisterServlet extends HttpServlet {
 		if (emailobj instanceof String) {
 			email = (String)emailobj;
 			if (email.matches(".*\\s.*")) {
+				email = null;
+			}
+			if (!(email.matches("^[a-zA-Z0-9\\.\\-_@]{1,40}$"))) {
 				email = null;
 			}
 		} else {
@@ -52,19 +58,23 @@ public class RegisterServlet extends HttpServlet {
 			if (password.matches(".*\\s.*")) {
 				password = null;
 			}
+			if (!(password.matches("^[a-zA-Z0-9!@#$%^&*\\.=+<>?:;\\-_]{1,12}$"))) {
+				password = null;
+			}
+//			
 		} else {
 			password = null;
 		}
 		
 		if (username == null ||  email == null || password == null) {
 			if (username == null) {
-				String spaceErrorMsg = "文字が未入力または空白文字が含まれています";
+				String spaceErrorMsg = "文字が未入力または空白文字、または条件外の文字列です";
 				request.setAttribute("spaceErrorMsg", spaceErrorMsg);
 			} else if (email == null) {
-				String spaceErrorMsg2 = "文字が未入力または空白文字が含まれています";
+				String spaceErrorMsg2 = "文字が未入力または空白文字、または条件外の文字列です";
 				request.setAttribute("spaceErrorMsg2", spaceErrorMsg2);
 			} else if (password == null) {
-				String spaceErrorMsg3 = "文字が未入力または空白文字が含まれています";
+				String spaceErrorMsg3 = "文字が未入力または空白文字、または条件外の文字列です";
 				request.setAttribute("spaceErrorMsg3", spaceErrorMsg3);
 			}
 			// テスト用

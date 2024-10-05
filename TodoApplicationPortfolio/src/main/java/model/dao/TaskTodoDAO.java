@@ -12,19 +12,23 @@ import model.DBConnection;
 import model.UserAccount;
 
 public class TaskTodoDAO {
-	public void Create(UserAccount useraccount) throws SQLException, ClassNotFoundException {
+	public int Create(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		//
 		String name = useraccount.getUsername();
 		Integer id = useraccount.getId();
 		String getId = id.toString();
-		String sql = "CREATE SCHEMA " + name + getId;
+		String sql = "CREATE SCHEMA " + name + "_" + getId;
 		StringBuilder sql2 = new StringBuilder();
-		sql2.append("CREATE TABLE " + name + getId + ".alltasks (");
+		sql2.append("CREATE TABLE " + name + "_" + getId + ".alltasks (");
 		sql2.append("userid INT,");
 		sql2.append("piece INT PRIMARY KEY,");
 		sql2.append("title VARCHAR(15),");
 		sql2.append("memo VARCHAR(150),");
 		sql2.append("deadlinedate DATE);");
+		System.out.println(sql2.toString());
+		
+		// 
+		int r = 0;
 		
 		try (Connection con = DBConnection.getConnection()) {
 			try (PreparedStatement pstmt = con.prepareStatement(sql);
@@ -34,21 +38,23 @@ public class TaskTodoDAO {
 				// もし失敗するとSQLExceptionを返すらしいが、
 				// スキーマ名もチェック済みでエラーが考えられないため、
 				// 戻り値は受け取らないこととした。?
+				// やっぱりsql2は一応判断材料になるため戻り値を加えた。
 				pstmt.executeUpdate();
-				pstmt2.executeUpdate();
+				r = pstmt2.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		return r;
 	}
 	
 	public int RecordCount(UserAccount useraccount) throws SQLException, ClassNotFoundException {
 		//
 		Integer id = useraccount.getId();
 		String getId = id.toString();
-		String sql = "SELECT * FROM " + useraccount.getUsername() + getId + ".alltasks";
+		String sql = "SELECT * FROM " + useraccount.getUsername() + "_" + getId + ".alltasks";
 		int countrecords = 0;
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -79,7 +85,13 @@ public class TaskTodoDAO {
 		
 		int id = useraccount.getId();
 		
-		String sql = "INSERT INTO " + useraccount.getUsername() + getId + ".alltasks (userid, piece, title, memo, deadlinedate) VALUES (?, ?, ?, ?, ?)";
+		LocalDate ld;
+		
+		if (deadlinedate == null) {
+			//
+		}
+		
+		String sql = "INSERT INTO " + useraccount.getUsername() + "_" + getId + ".alltasks (userid, piece, title, memo, deadlinedate) VALUES (?, ?, ?, ?, ?)";
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			//
@@ -87,8 +99,14 @@ public class TaskTodoDAO {
 			pstmt.setInt(2, nextpiece);
 			pstmt.setString(3, title);
 			pstmt.setString(4, memo.toString());
-//			pstmt.setObject(5, Date.valueOf(deadlinedate));
-			pstmt.setObject(5, deadlinedate);
+//			pstmt.setObject(5, deadlinedate);
+			
+			if (deadlinedate == null) {
+				//
+				pstmt.setObject(5, null);
+			} else {
+				pstmt.setObject(5, deadlinedate);
+			}
 			
 			int r = pstmt.executeUpdate();
 			

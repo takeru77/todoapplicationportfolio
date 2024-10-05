@@ -80,7 +80,7 @@ public class LoginDAO {
 		System.out.println(useraccount.getUsername());
 		System.out.println(userid);
 		
-		String sql = "SELECT userid, piece, title, memo, deadlinedate FROM " + useraccount.getUsername() + userid + ".alltasks";
+		String sql = "SELECT userid, piece, title, memo, deadlinedate FROM " + useraccount.getUsername() + "_" + userid + ".alltasks";
 		
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			//
@@ -113,8 +113,6 @@ public class LoginDAO {
 			}
 		}
 		System.out.println("try終了後");
-		System.out.println(todoList.get(0).getPiece());
-		System.out.println(todoList.get(1).getPiece());
 		System.out.println("todoListが終わりました");
 		return todoList;
 	}

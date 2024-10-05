@@ -72,11 +72,6 @@ public class LoginServlet2 extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				// 検査用の処理
-				System.out.println(todoList.get(0).getPiece());
-				System.out.println(todoList.get(1).getPiece());
-				
-				
 				session.setAttribute("todoList", todoList);
 				System.out.println("todoListをセッションスコープに渡しました");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");

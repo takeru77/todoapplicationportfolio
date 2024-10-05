@@ -16,6 +16,17 @@ if (allTasksObj instanceof List<?>) {
 }
 
 UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
+String useraccountname = useraccount.getUsername();
+
+AllTasks firsttodo = new AllTasks();
+Optional<LocalDate> deadlinedate = Optional.ofNullable(null);
+LocalDate localDate;
+String localDateString = "";
+
+StringBuilder stringbuilder = new StringBuilder("");
+String memo = stringbuilder.toString();
+
+int piece = 0;
 %>
 <%-- else { --%>
 <%-- todoList = new ArrayList<>(); --%>
@@ -45,39 +56,44 @@ UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
             <h1>タスク一覧</h1>
             <form class="task-todo" action="?" method="get">
             	<% if (todoList != null) { %>
+            	<% if (todoList.size() > 0) { %>
             	<% for (AllTasks todo : todoList) { %>
-            	<% Optional<LocalDate> todos = todo.getDeadlinedate(); %>
-            	<% LocalDate ld = todos.orElse(LocalDate.MAX); %>
-            	<% String localDateString = ""; %>
-            	<% if (ld.equals(LocalDate.MAX)) { %>
-            	<% 	 localDateString = ""; %>
-            	<% } else { %>
-            	<%   localDateString = ld.toString(); %>
+            	<% stringbuilder = todo.getMemo(); %>
+            	<% memo = stringbuilder.toString(); %>
+            	<% piece = todo.getPiece(); %>
+            	<% try { %>
+            	<% localDate = deadlinedate.get(); %>
+            	<% localDateString = localDate.toString(); %>
+            	<% } catch (Exception e) { %>
+            	<% localDateString = ""; %>
             	<% } %>
                 <div class="input-container">
                     <div class="input-container-padding">
-                        <p class="username">ユーザー名：<span><%= useraccount.getUsername() %></span></p>
+                        <p class="username">ユーザー名：<span><%= useraccountname %></span></p>
                         <div class="content-area flex">
                             <p class="heading">内容：</p>
-                            <p class="content"><%= todo.getMemo() %></p>
+                            <p class="content"><%= memo %></p>
                         </div>
                         <div class="content-area flex">
                             <p class="heading">期限日：</p>
                             <%-- 3項演算子 条件式 ? 真の値 : 偽の値 の場合、真の値と偽の値は同じ型でなくてはならない --%>
                         	<p class="dead-line-date"><%= localDateString %></p>
                         </div>
-                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value=<%= todo.getPiece() %>>編集する</button>
+                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value=<%= piece %>>編集する</button>
                         <button class="button">完了</button>
                     </div>
                 </div>
-                <% } %>
-                <% } %>
+            <%--<% } %>--%>
+            <%--<% } %>--%>
                 <div class="task-add">
                     <div class="square">
                         <a href="JumpNewTask" class="plus">+</a>
                     </div>
                 </div>
             </form>
+            	<% } %>
+            	<% } %>
+            	<% } %>
         </section>
     </body>
 </html>

@@ -56,7 +56,11 @@ public class RegisterServlet4 extends HttpServlet {
 					int id = regidao.Getid(useraccount);
 					useraccount = new UserAccount(id, username, email, password);
 					// ここでスキーマとそれに対応するalltasksテーブルを作成する
-					tasktododao.Create(useraccount);
+					int r = tasktododao.Create(useraccount);
+					System.out.println("Createで渡された数字は" + r + "です");
+					// ↑ Createメソッドでは戻り値はvoidでも良かったが、
+					// ↑ 一応rで受け取ってprintで表示している。
+					
 					// tasktodo.jspでタスクを格納するコレクションを用意しておく
 					//List<AllTasks> alltasks = new ArrayList<>();
 					// もしUserAccountDBに格納できたなら、その情報をセッションスコープに保存
