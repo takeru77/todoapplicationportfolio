@@ -83,17 +83,15 @@ int piece = 0;
                         <button class="button">完了</button>
                     </div>
                 </div>
-            <%--<% } %>--%>
-            <%--<% } %>--%>
+            	<% } %>
+            	<% } %>
+            	<% } %>                
                 <div class="task-add">
                     <div class="square">
                         <a href="JumpNewTask" class="plus">+</a>
                     </div>
                 </div>
             </form>
-            	<% } %>
-            	<% } %>
-            	<% } %>
         </section>
     </body>
 </html>
