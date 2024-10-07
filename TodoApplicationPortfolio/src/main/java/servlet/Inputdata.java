@@ -22,10 +22,10 @@ public class Inputdata extends HttpServlet {
 		String login = (String)request.getParameter("login");
 		if (register != null) {
 //			System.out.println("registerに入りました");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
 		} else if (login != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

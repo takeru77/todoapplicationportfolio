@@ -58,7 +58,7 @@ public class NewTaskAdd2 extends HttpServlet {
 			todoList.add(alltasks);
 			session.setAttribute("todoList", todoList);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 		dispatcher.forward(request, response);
 	}
 

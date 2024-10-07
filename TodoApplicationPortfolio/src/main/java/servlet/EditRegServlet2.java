@@ -57,7 +57,7 @@ public class EditRegServlet2 extends HttpServlet {
 			
 			request.setAttribute("todoList", todoList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 			dispatcher.forward(request, response);
 			//
 		} else {

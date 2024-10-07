@@ -58,6 +58,10 @@ body {
     color: #000000;
 }
 
+.dropdown a:nth-child(3) {
+	color: red;
+}
+
 .dropdown a:hover {
     background-color: #f0f0f0;
 }

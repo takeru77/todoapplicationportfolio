@@ -19,12 +19,16 @@ public class RegisterServlet4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// newtask.jspにてtasktodo.jspファイルに戻るを押した場合、
-		// このサーブレットファイルに遷移してそのファイルへ画面遷移する。
-		// newtask.jspに遷移する際にログインチェックはしてあるので、
-		// ここではチェックはしていない。
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
-		dispatcher.forward(request, response);
+		// 不正なログインを防ぐ為、sessionスコープにUserAccountインスタンスが無ければ、
+		// LPページに戻る。
+		HttpSession session = request.getSession();
+		UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
+		if (useraccount == null) {
+			response.sendRedirect("index.html");
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("tasktodo.jsp");
+			dispatcher.forward(request, response);			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,10 +84,10 @@ public class RegisterServlet4 extends HttpServlet {
 		}
 		
 		if (newregisterjudge) {
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+			dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

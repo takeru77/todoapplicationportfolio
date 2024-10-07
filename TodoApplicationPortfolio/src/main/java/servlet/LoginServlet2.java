@@ -53,7 +53,7 @@ public class LoginServlet2 extends HttpServlet {
 			System.out.println("ユーザーアカウントを取得しました");
 			if (useraccount == null) {
 				System.out.println("LoginServlet2でuseraccountが取得できません");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				System.out.println("useraccountはnullではありませんでした");
@@ -74,13 +74,13 @@ public class LoginServlet2 extends HttpServlet {
 				
 				session.setAttribute("todoList", todoList);
 				System.out.println("todoListをセッションスコープに渡しました");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 				dispatcher.forward(request, response);
 			}
 		} else {
 			String falseInput = "メールアドレスまたはパスワードが違います";
 			request.setAttribute("falseInput", falseInput);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

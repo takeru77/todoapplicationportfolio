@@ -27,10 +27,9 @@ StringBuilder stringbuilder = new StringBuilder("");
 String memo = stringbuilder.toString();
 
 int piece = 0;
+
+String title = "";
 %>
-<%-- else { --%>
-<%-- todoList = new ArrayList<>(); --%>
-<%-- } --%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -51,10 +50,11 @@ int piece = 0;
                 <img src="images/WebSiteLogo.jpg" alt="TDAとそのロゴ">
             </div>
             <div class="jumparea">
-                <p onclick="toggleDropdown()"><span>tatakeru1</span>さんがログイン中</p>
+                <p onclick="toggleDropdown()"><span><%= useraccountname %></span>さんがログイン中</p>
                 <div class="dropdown" id="myDropdown">
-                    <a href="#">プロフィール</a>
+                    <a href="ShowProfile">プロフィール</a>
                     <a href="#">ログアウト</a>
+                    <a href="#">アカウント削除</a>
                 </div>
             </div>
         </header>
@@ -68,6 +68,7 @@ int piece = 0;
                 <% memo = stringbuilder.toString(); %>
                 <% piece = todo.getPiece(); %>
                 <% deadlinedate = todo.getDeadlinedate(); %>
+                <% title = todo.getTitle(); %>
                 <% try { %>
                 <% localDate = deadlinedate.get(); %>
                 <% localDateString = localDate.toString(); %>
@@ -76,7 +77,7 @@ int piece = 0;
                 <% } %>
                 <div class="input-container">
                     <div class="input-container-padding">
-                        <p class="username">ユーザー名：<span><%= useraccountname %></span></p>
+                        <p class="username">タイトル名：<span><%= title %></span></p>
                         <div class="content-area flex">
                             <p class="heading">内容：</p>
                             <p class="content"><%= memo %></p>

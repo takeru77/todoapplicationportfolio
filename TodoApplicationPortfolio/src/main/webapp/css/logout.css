@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+:root {
+    --input-container-set: 25rem;
+}
+
+body {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        max-width: 420px;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    height: 7.5rem;
+    background-color: #60718a;
+    padding-left: 1.2rem;
+    padding-right: 7rem;
+    justify-content: space-between;
+}
+
+.header-logo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    width: 5rem;
+    height: 6rem;
+}
+
+.header-logo p {
+    font-size: 3em;
+    margin-left: 0.3em;
+}
+
+.main-visual {
+    padding: 5rem 0 0;
+}
+
+.main-visual h1 {
+    text-align: center;
+}
+
+
+.button-set {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.button-set a:nth-child(1) {
+    display: inline-block;
+    color: #F3F3F3;
+    background-color: #005989;
+    padding: 1.5rem 0 1.5rem;
+    width: 13rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.button-set a:nth-child(2) {
+    display: block;
+    margin-top: 4rem;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
