@@ -27,7 +27,6 @@ public class TaskTodoDAO {
 		sql2.append("deadlinedate DATE);");
 		System.out.println(sql2.toString());
 		
-		// 
 		int r = 0;
 		
 		try (Connection con = DBConnection.getConnection()) {
@@ -64,10 +63,6 @@ public class TaskTodoDAO {
 			while (res.next()) {
 				countrecords += 1;
 			}
-			
-//			if (countrecords == 0) {
-//				countrecords += 1;
-//			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -82,8 +77,6 @@ public class TaskTodoDAO {
 		Integer idstring = useraccount.getId();
 		String getId = idstring.toString();
 		AllTasks alltasks = new AllTasks();
-		
-		int id = useraccount.getId();
 		
 		LocalDate ld;
 		
@@ -157,6 +150,30 @@ public class TaskTodoDAO {
 			e.printStackTrace();
 		}
 		return updateResult;
+	}
+	
+	public boolean DeleteTask(UserAccount useraccount, int pieceNumber) throws SQLException, ClassNotFoundException {
+		//
+		Integer idstring = useraccount.getId();
+		String getId = idstring.toString();
+		boolean deleteResult = false;
+		
+		String sql = "DELETE FROM " + useraccount.getUsername() + "_" + getId + ".alltasks WHERE piece = ?";
+		
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, pieceNumber);
+			
+			int r = pstmt.executeUpdate();
+			
+			if (r != 0) {
+				deleteResult = true;
+			} else {
+				deleteResult = false;
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return deleteResult;
 	}
 }
 

@@ -49,25 +49,31 @@ int piece = 0;
         <header class="header flex">
             <div class="header-logo flex">
                 <img src="images/WebSiteLogo.jpg" alt="TDAとそのロゴ">
-                <p>TDA</p>
+            </div>
+            <div class="jumparea">
+                <p onclick="toggleDropdown()"><span>tatakeru1</span>さんがログイン中</p>
+                <div class="dropdown" id="myDropdown">
+                    <a href="#">プロフィール</a>
+                    <a href="#">ログアウト</a>
+                </div>
             </div>
         </header>
         <section class="main-visual">
             <h1>タスク一覧</h1>
             <form class="task-todo" action="?" method="get">
-            	<% if (todoList != null) { %>
-            	<% if (todoList.size() > 0) { %>
-            	<% for (AllTasks todo : todoList) { %>
-            	<% stringbuilder = todo.getMemo(); %>
-            	<% memo = stringbuilder.toString(); %>
-            	<% piece = todo.getPiece(); %>
-            	<% deadlinedate = todo.getDeadlinedate(); %>
-            	<% try { %>
-            	<% localDate = deadlinedate.get(); %>
-            	<% localDateString = localDate.toString(); %>
-            	<% } catch (Exception e) { %>
-            	<% localDateString = ""; %>
-            	<% } %>
+                <% if (todoList != null) { %>
+                <% if (todoList.size() > 0) { %>
+                <% for (AllTasks todo : todoList) { %>
+                <% stringbuilder = todo.getMemo(); %>
+                <% memo = stringbuilder.toString(); %>
+                <% piece = todo.getPiece(); %>
+                <% deadlinedate = todo.getDeadlinedate(); %>
+                <% try { %>
+                <% localDate = deadlinedate.get(); %>
+                <% localDateString = localDate.toString(); %>
+                <% } catch (Exception e) { %>
+                <% localDateString = ""; %>
+                <% } %>
                 <div class="input-container">
                     <div class="input-container-padding">
                         <p class="username">ユーザー名：<span><%= useraccountname %></span></p>
@@ -77,16 +83,15 @@ int piece = 0;
                         </div>
                         <div class="content-area flex">
                             <p class="heading">期限日：</p>
-                            <%-- 3項演算子 条件式 ? 真の値 : 偽の値 の場合、真の値と偽の値は同じ型でなくてはならない --%>
                         	<p class="dead-line-date"><%= localDateString %></p>
                         </div>
-                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value=<%= piece %>>編集する</button>
+                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value="<%= piece %>">編集する</button>
                         <button class="button">完了</button>
                     </div>
-                </div>
+                </div>   
+                <% } %>
             	<% } %>
-            	<% } %>
-            	<% } %>                
+            	<% } %>               
                 <div class="task-add">
                     <div class="square">
                         <a href="JumpNewTask" class="plus">+</a>
@@ -94,5 +99,10 @@ int piece = 0;
                 </div>
             </form>
         </section>
+        <script>
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+        </script>
     </body>
 </html>

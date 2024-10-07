@@ -26,7 +26,17 @@
 <% Integer ite2 = Integer.valueOf(pieceNumber); %>
 <% String pieceNumberString = ite2.toString(); %>
 
-<% String errorMsg = (String)request.getAttribute("errorMsg"); %>
+<% Object errorMsgobj = request.getAttribute("errorMsg"); %>
+<% String errorMsg = null; %>
+<% if (errorMsgobj instanceof String) { %>
+<% errorMsg = (String)errorMsgobj; %>
+<% } %>
+
+<% Object deleteErrorobj = request.getAttribute("deleteError"); %>
+<% String deleteError = null; %>
+<% if (deleteErrorobj instanceof String) { %>
+<% deleteError = (String)deleteErrorobj; %>
+<% } %>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -71,6 +81,8 @@
                 <div class="button-set">
                 	<% if (errorMsg != null) { %>
                 	<p>※<%= errorMsg %></p>
+                	<% } else if (deleteError != null) { %>
+                	<p>※<%= deleteError %></p>
                 	<% } %>
                     <a href="RegisterServlet4">編集せずにタスク一覧に戻る</a><br>
                     <!-- <button type="submit" formaction="RegisterServlet">新規登録する</button><br> -->
