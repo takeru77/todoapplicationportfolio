@@ -7,7 +7,7 @@
 <title>TDA｜簡単なTodoアプリケーション</title>
 <meta name="description" content="これは練習用のポートフォリオです。実際にはサービスを提供しておりません。ですが、使いたい方はご自由にお使いください。">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-<link rel="stylesheet" href="css/logout.css">
+<link rel="stylesheet" href="css/deleteaccount.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,10 +21,12 @@
             </div>
         </header>
         <section class="main-visual">
-            <h1>ログアウトしますか？</h1>
+            <h1>アカウント削除しますか？</h1>
             <div class="button-set">
                 <a href="tasktodo.jsp">タスク一覧に戻る</a>
-                <a href="Logout">ログアウト</a>
+                <form action="DeleteAccount" method="post">
+                    <input type="submit" value="アカウント削除">
+                </form>
             </div>
         </section>
     </body>

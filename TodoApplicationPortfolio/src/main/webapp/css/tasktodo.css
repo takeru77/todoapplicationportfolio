@@ -97,6 +97,7 @@ body {
 .header-logo p {
     font-size: 3em;
     margin-left: 0.3em;
+    padding: 0;
 }
 
 .main-visual {

@@ -48,13 +48,14 @@ String title = "";
         <header class="header flex">
             <div class="header-logo flex">
                 <img src="images/WebSiteLogo.jpg" alt="TDAとそのロゴ">
+                <p>TDA</p>
             </div>
             <div class="jumparea">
                 <p onclick="toggleDropdown()"><span><%= useraccountname %></span>さんがログイン中</p>
                 <div class="dropdown" id="myDropdown">
                     <a href="ShowProfile">プロフィール</a>
-                    <a href="#">ログアウト</a>
-                    <a href="#">アカウント削除</a>
+                    <a href="LogoutPage">ログアウト</a>
+                    <a href="DeleteAC">アカウント削除</a>
                 </div>
             </div>
         </header>

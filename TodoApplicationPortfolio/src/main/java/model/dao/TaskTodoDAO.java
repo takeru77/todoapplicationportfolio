@@ -175,5 +175,26 @@ public class TaskTodoDAO {
 		}
 		return deleteResult;
 	}
+	
+	public boolean DropTable(UserAccount useraccount) throws SQLException, ClassNotFoundException {
+		//
+		Integer idstring = useraccount.getId();
+		String getId = idstring.toString();
+		boolean dropTableResult = false;
+		
+		String sql = "DROP TABLE " + useraccount.getUsername() + "_" + getId + ".alltasks";
+		
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.executeUpdate();
+			dropTableResult = true;
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			dropTableResult = false;
+			e.printStackTrace();
+		}
+		
+		return dropTableResult;
+	}
 }
 
