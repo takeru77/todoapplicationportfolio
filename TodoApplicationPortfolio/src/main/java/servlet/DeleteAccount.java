@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.UserAccount;
+import model.dao.DeleteUserDAO;
 import model.dao.TaskTodoDAO;
 
 @WebServlet("/DeleteAccount")
@@ -29,6 +30,8 @@ public class DeleteAccount extends HttpServlet {
 		UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 		
 		TaskTodoDAO tasktododao = new TaskTodoDAO();
+		DeleteUserDAO deleteuserdao = new DeleteUserDAO();
+		
 		boolean dropTableResult;
 		boolean deleteUserAccount;
 		RequestDispatcher dispatcher;
@@ -42,6 +45,13 @@ public class DeleteAccount extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/deleteaccount.jsp");
 			dispatcher.forward(request, response);
 			return;
+		}
+		
+		try {
+			deleteUserAccount = deleteuserdao.DeleteUserAccount(useraccount);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			
 		}
 		
 		
