@@ -31,4 +31,21 @@ public class DeleteUserDAO {
 		
 		return deleteUserResult;
 	}
+	
+	public void DropSchema(UserAccount useraccount) throws SQLException, ClassNotFoundException {
+		
+		Integer idInteger = useraccount.getId();
+		String getId = idInteger.toString();
+		
+		String sql = "DROP SCHEMA " + useraccount.getUsername() + "_" + getId;
+		
+		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			//
+			pstmt.executeUpdate();
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 }

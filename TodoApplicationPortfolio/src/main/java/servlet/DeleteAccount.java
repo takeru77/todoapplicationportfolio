@@ -25,9 +25,9 @@ public class DeleteAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//
 		HttpSession session = request.getSession();
+		UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 		session.invalidate();
 		
-		UserAccount useraccount = (UserAccount)session.getAttribute("useraccount");
 		
 		TaskTodoDAO tasktododao = new TaskTodoDAO();
 		DeleteUserDAO deleteuserdao = new DeleteUserDAO();
@@ -51,10 +51,23 @@ public class DeleteAccount extends HttpServlet {
 			deleteUserAccount = deleteuserdao.DeleteUserAccount(useraccount);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			
+			// ログイン状態からアカウントは削除するからdeleteUserAccountの失敗が考えにくいことは確か。
+			// もしここでalltasksテーブルが削除され、useraccountテーブルが残ったとしても、
+			// ログインは問題なく出来る。そして再度アカウント削除処理をしたとしても上のdropTableResult
+			// はtrueで抜けるから、もしここで万一失敗したとしても大丈夫だと考える。
 		}
 		
+		// スキーマを削除する処理
+		try {
+			//
+			deleteuserdao.DropSchema(useraccount);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
+		dispatcher = request.getRequestDispatcher("WEB-INF/jsp/deletecheck.jsp");
+		dispatcher.forward(request, response);
+		return;
 	}
 
 }

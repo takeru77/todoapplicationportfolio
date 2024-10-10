@@ -49,5 +49,11 @@
                 </div>
             </div>
         </section>
+        <script>
+			if (localStorage.getItem('visited') !== 'true') {
+  				window.alert('これはポートフォリオアプリで、実際にはサービスを提供しておりません。\nその為予告なくサイトを閉鎖する可能性がございます。');
+  				localStorage.setItem('visited', 'true');
+			}
+		</script>
     </body>
 </html>

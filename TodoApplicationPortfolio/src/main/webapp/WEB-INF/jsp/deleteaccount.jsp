@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% Object errorMsgobj = request.getAttribute("errorMsg"); %>
+<% String errorMsg = null; %>
+<% if (errorMsgobj instanceof String) { %>
+<%   errorMsg = (String)errorMsgobj; %>
+<% } %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -22,6 +27,9 @@
         </header>
         <section class="main-visual">
             <h1>アカウント削除しますか？</h1>
+            <% if (errorMsg != null) { %>
+            <p>※<%= errorMsg %></p>
+            <% } %>
             <div class="button-set">
                 <a href="tasktodo.jsp">タスク一覧に戻る</a>
                 <form action="DeleteAccount" method="post">

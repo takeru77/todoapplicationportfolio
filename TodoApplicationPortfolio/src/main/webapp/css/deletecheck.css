@@ -41,43 +41,14 @@ body {
     margin-left: 0.3em;
 }
 
-.main-visual {
-    padding: 5rem 0 0;
-}
-
-.main-visual h1 {
+.text {
     text-align: center;
-}
-
-.main-visual p {
-    text-align: center;
-    color: red;
-}
-
-.button-set {
-    text-align: center;
+    line-height: 3;
     margin-top: 5rem;
-    margin-bottom: 3rem;
 }
 
-.button-set a:nth-child(1) {
-    display: inline-block;
-    color: #F3F3F3;
-    background-color: #005989;
-    padding: 1.5rem 0 1.5rem;
-    width: 13rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.button-set form input {
+a {
     display: block;
-    margin: 4rem auto 0;
-    font-size: 1.2rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
+    text-align: center;
+    margin-top: 3rem;
 }

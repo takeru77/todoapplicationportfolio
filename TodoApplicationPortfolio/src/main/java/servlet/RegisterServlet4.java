@@ -72,11 +72,12 @@ public class RegisterServlet4 extends HttpServlet {
 					session.setAttribute("useraccount", useraccount);
 					session.setAttribute("useraccountid", id);
 					//session.setAttribute("alltasks", alltasks);
+				} else {
+					// newregisterjudgeがfalseということは、何らかの事情で登録できなかったということ
+					// よって前ページに戻る。戻ったページでエラーを出せたら最善であるが、ここでは割愛する
+					System.out.println("Registerメソッドが失敗しました");
+					response.sendRedirect("register.jsp");					
 				}
-				// newregisterjudgeがfalseということは、何らかの事情で登録できなかったということ
-				// よって前ページに戻る。戻ったページでエラーを出せたら最善であるが、ここでは割愛する
-				System.out.println("Registerメソッドが失敗しました");
-				response.sendRedirect("register.jsp");
 				
 			} catch (SQLException | ClassNotFoundException e) {
 				// テスト用
