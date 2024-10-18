@@ -93,6 +93,7 @@ public class NewTaskAdd extends HttpServlet {
 				System.out.println("NewTaskAddで画面遷移します");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("NewTaskAdd2");
 				dispatcher.forward(request, response);
+				return;
 			} else {
 				String errorMsg = "タスクの上限数は20個までになっております";
 				request.setAttribute("errorMsg", errorMsg);

@@ -61,7 +61,7 @@ String title = "";
         </header>
         <section class="main-visual">
             <h1>タスク一覧</h1>
-            <form class="task-todo" action="?" method="get">
+            <form class="task-todo" action="?" method="post">
                 <% if (todoList != null) { %>
                 <% if (todoList.size() > 0) { %>
                 <% for (AllTasks todo : todoList) { %>
@@ -87,8 +87,12 @@ String title = "";
                             <p class="heading">期限日：</p>
                         	<p class="dead-line-date"><%= localDateString %></p>
                         </div>
-                        <button class="input-container-button button" type="submit" formaction="EditServlet" name="edit" value="<%= piece %>">編集する</button>
-                        <button class="button">完了</button>
+                        <button class="input-container-button button" type="submit" formaction="EditServlet">編集する</button>
+                        <button class="button" type="submit" formaction="EditServlet" name="complete" value="complete">完了</button>
+                        
+                        <input type="hidden" name="edit" value="<%= piece %>">
+                        <%-- <input type="hidden" name="pieceNumberString" value="<%= piece %>"> --%>
+                        
                     </div>
                 </div>   
                 <% } %>

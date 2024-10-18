@@ -22,8 +22,8 @@
 <% Integer ite = Integer.valueOf(todoListnum); %>
 <% String todoListnumber = ite.toString(); %>
 
-<% int pieceNumber = (int)request.getAttribute("pieceNumber"); %>
-<% Integer ite2 = Integer.valueOf(pieceNumber); %>
+<% int pieceNumberInt = (int)request.getAttribute("pieceNumberString"); %>
+<% Integer ite2 = Integer.valueOf(pieceNumberInt); %>
 <% String pieceNumberString = ite2.toString(); %>
 
 <% Object errorMsgobj = request.getAttribute("errorMsg"); %>

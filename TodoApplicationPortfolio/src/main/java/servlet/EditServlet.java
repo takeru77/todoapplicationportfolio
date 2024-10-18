@@ -16,10 +16,22 @@ import model.AllTasks;
 public class EditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		List<AllTasks> todoList = (List<AllTasks>)session.getAttribute("todoList");
+		
+		Object completeObj = request.getParameter("complete");
+		String complete;
+		if (completeObj instanceof String) {
+			complete = (String)completeObj;
+		} else {
+			complete = null;
+		}
 		
 		String Number = (String)request.getParameter("edit");
 		System.out.println("EditServletのNumberは" + Number);
@@ -34,10 +46,20 @@ public class EditServlet extends HttpServlet {
 		
 		request.setAttribute("todoListnumber", todoListnumber);
 		request.setAttribute("purposeTask", purposeTask);
-		request.setAttribute("pieceNumber", pieceNumber);
+		request.setAttribute("pieceNumberString", pieceNumber);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");
+		RequestDispatcher dispatcher;
+		
+		if (complete != null) {
+			//
+			dispatcher = request.getRequestDispatcher("DeleteTask");
+			dispatcher.forward(request, response);
+			return;
+		}
+		
+		dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");
 		dispatcher.forward(request, response);
+		return;
 		
 		// こうすればtodoListの何番目に格納されているかが分かる		
 //		int kaisuu = 0;
@@ -49,11 +71,6 @@ public class EditServlet extends HttpServlet {
 //				break;
 //			}
 //		}
-		
 	}
-
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//	}
 
 }

@@ -28,8 +28,18 @@ public class DeleteTask extends HttpServlet {
 		String todoListnumberString = (String)request.getParameter("todoListnumber");
 		String pieceNumberString = (String)request.getParameter("pieceNumberString");
 		
-		int todoListnumber = Integer.parseInt(todoListnumberString);
-		int pieceNumber = Integer.parseInt(pieceNumberString);
+		// もし送られてきたパラメータが空であった場合、
+		// リクエストスコープから受け取る。そうすれば同じ変数を使って受け取れる
+		int todoListnumber;
+		int pieceNumber;
+		if (todoListnumberString == null && pieceNumberString == null) {
+			//
+			todoListnumber = (int)request.getAttribute("todoListnumber");
+			pieceNumber = (int)request.getAttribute("pieceNumberString");
+		} else {
+			todoListnumber = Integer.parseInt(todoListnumberString);
+			pieceNumber = Integer.parseInt(pieceNumberString);			
+		}
 		
 		TaskTodoDAO tasktododao = new TaskTodoDAO();
 		
@@ -58,7 +68,7 @@ public class DeleteTask extends HttpServlet {
 		if (deleteResult) {
 			//
 			session.setAttribute("todoList", todoList);
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tasktodo.jsp");
+			dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			//

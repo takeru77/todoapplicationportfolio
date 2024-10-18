@@ -159,21 +159,34 @@ public class TaskTodoDAO {
 		boolean deleteResult = false;
 		
 		String sql = "DELETE FROM " + useraccount.getUsername() + "_" + getId + ".alltasks WHERE piece = ?";
+		String sql2 = "UPDATE " + useraccount.getUsername() + "_" + getId + ".alltasks SET piece = piece - 1 WHERE piece > ?";
 		
-		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setInt(1, pieceNumber);
-			
-			int r = pstmt.executeUpdate();
-			
-			if (r != 0) {
-				deleteResult = true;
-			} else {
-				deleteResult = false;
+		try (Connection con = DBConnection.getConnection()) {
+			try (PreparedStatement pstmt = con.prepareStatement(sql);
+				 PreparedStatement pstmt2 = con.prepareStatement(sql2)) {
+				pstmt.setInt(1, pieceNumber);
+				pstmt2.setInt(1, pieceNumber);
+				
+				int r = pstmt.executeUpdate();
+				int r2 = 0;
+				
+				if (r != 0) {
+					deleteResult = true;
+					// 戻り値は省略
+					pstmt2.executeUpdate();
+				} else {
+					deleteResult = false;
+				}				
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return deleteResult;
+		
+		// "SELECT 
+		// String sql = "UPDATE " + useraccont.getUsername() + "_" + getId + ".alltasks SET 
 	}
 	
 	public boolean DropTable(UserAccount useraccount) throws SQLException, ClassNotFoundException {
