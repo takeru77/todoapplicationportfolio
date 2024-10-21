@@ -32,7 +32,7 @@ public class RegisterServlet2 extends HttpServlet {
 			// テスト用
 			String errorMsg2 = "英文字を先頭にしてください";
 			request.setAttribute("errorMsg2", errorMsg2);
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher = request.getRequestDispatcher("register.jsp");
 		    dispatcher.forward(request, response);
 		} else {
 			request.setAttribute("username", username);

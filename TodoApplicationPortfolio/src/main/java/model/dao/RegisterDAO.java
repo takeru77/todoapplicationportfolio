@@ -15,22 +15,28 @@ public class RegisterDAO {
 		
 		String sql = "SELECT password FROM public.useraccount WHERE password = ?";
 		
-		try (Connection con = DBConnection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-			pstmt.setString(1, password);
-			ResultSet res = pstmt.executeQuery();
-			
-			if (res.next()) {
-				// もしも入力したパスワードが、このデータベースで見つかった場合
-				// 登録は出来ないからfalseを格納する
-				newregires = false;
-			} else {
-				// 見つからなかった場合は登録可能であるからtrueを格納する
-				newregires = true;
+		System.out.println("getConnectionを使用します");
+		try (Connection con = DBConnection.getConnection()) {
+			System.out.println("getConnectionが成功しました");
+			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, password);
+				ResultSet res = pstmt.executeQuery();
+				
+				if (res.next()) {
+					// もしも入力したパスワードが、このデータベースで見つかった場合
+					// 登録は出来ないからfalseを格納する
+					newregires = false;
+				} else {
+					// 見つからなかった場合は登録可能であるからtrueを格納する
+					newregires = true;
+				}
+				
+				res.close();
+				pstmt.close();				
+			} catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
-			
-			res.close();
-			pstmt.close();
 			
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

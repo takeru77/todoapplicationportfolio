@@ -78,7 +78,7 @@ public class RegisterServlet extends HttpServlet {
 				request.setAttribute("spaceErrorMsg3", spaceErrorMsg3);
 			}
 			// テスト用
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			// テスト用

@@ -44,7 +44,7 @@ public class RegisterServlet3 extends HttpServlet {
 			// エラーメッセージを格納してregister.jspに戻る
 			String errorMsg = "このパスワードは既に存在します";
 			request.setAttribute("errorMsg", errorMsg);
-			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
+			dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			request.setAttribute("username", username);

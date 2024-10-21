@@ -8,7 +8,7 @@ public class DBConnection {
 	
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		// データベースのURL
-		final String URL = "jdbc:postgresql://172.20.10.4:5432/UserAccount";
+		final String URL = "jdbc:postgresql://153.126.161.113:5432/useraccount";
 		// データベースにアクセスするユーザー
 		final String USER = "tda";
 		// データベースのパスワード
@@ -17,6 +17,8 @@ public class DBConnection {
 		Class.forName("org.postgresql.Driver");
 		
 		Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+		System.out.println("DBConnection終わり");
 		return con;
 	}
+	// 153.126.161.113
 }
