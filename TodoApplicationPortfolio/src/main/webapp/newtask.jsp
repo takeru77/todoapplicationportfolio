@@ -37,11 +37,21 @@ if (errorMsgObj instanceof String) {
                         <label for="title">タイトル<br>
                         <span>※１５文字以内</span></label><br>
                         <input type="text" id="title" name="title" maxlength="15">
+                        <div class="wordcount">
+                        	<div>現在</div>
+                        	<div id="titlelength">0</div>
+                        	<div>文字</div>
+                        </div>
                     </div>
                     <div class="input-container">
                         <label for="memo">内容<br>
                         <span>※１５０文字以内</span></label><br>
                         <textarea name="memo" id="memo" cols="42" rows="8"></textarea>
+                        <div class="wordcount">
+                        	<div>現在</div>
+                        	<div id="memolength">0</div>
+                        	<div>文字</div>
+                        </div>
                     </div>
                     <div class="input-container">
                         <label for="deadlinedate">期限日</label><br>
@@ -61,5 +71,20 @@ if (errorMsgObj instanceof String) {
                 </div>
             </form>
         </section>
+        <script>
+        	const inputtitle = document.querySelector('#title');
+        	const inputmemo = document.querySelector('#memo');
+
+        	const inputtitlelength = document.querySelector('#titlelength');
+        	const inputmemolength = document.querySelector('#memolength');
+
+        	inputtitle.addEventListener('input', () => {
+            	inputtitlelength.textContent = inputtitle.value.length;
+            }, false);
+
+        	inputmemo.addEventListener('input', () => {
+            	inputmemolength.textContent = inputmemo.value.length;
+            }, false);
+        </script>
     </body>
 </html>
