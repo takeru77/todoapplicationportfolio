@@ -45,6 +45,16 @@ String title = "";
 <script src="https://kit.fontawesome.com/bd00b6e71c.js" crossorigin="anonymous"></script>
 </head>
     <body>
+    	<script>
+    		let reloaded = false;
+    		window.onload = function() {
+    			if (!reloaded) {
+    				reloaded = true;
+    				// sessionStorageをクリア
+    				sessionStorage.clear();
+    			}
+    		}
+    	</script>
         <header class="header flex">
             <div class="header-logo flex">
                 <img src="images/WebSiteLogo.jpg" alt="TDAとそのロゴ">
@@ -61,7 +71,7 @@ String title = "";
         </header>
         <section class="main-visual">
             <h1>タスク一覧</h1>
-            <form class="task-todo" action="?" method="post">
+            <form class="task-todo" action="EditServlet" method="post">
                 <% if (todoList != null) { %>
                 <% if (todoList.size() > 0) { %>
                 <% for (AllTasks todo : todoList) { %>
@@ -69,6 +79,11 @@ String title = "";
                 <% memo = stringbuilder.toString(); %>
                 <% piece = todo.getPiece(); %>
                 <% deadlinedate = todo.getDeadlinedate(); %>
+                
+                <%-- 後で消す --%>
+                <% System.out.print(deadlinedate); %>
+                <% System.out.println(piece); %>
+                
                 <% title = todo.getTitle(); %>
                 <% try { %>
                 <% localDate = deadlinedate.get(); %>
@@ -87,12 +102,16 @@ String title = "";
                             <p class="heading">期限日：</p>
                         	<p class="dead-line-date"><%= localDateString %></p>
                         </div>
-                        <button class="input-container-button button" type="submit" formaction="EditServlet">編集する</button>
-                        <button class="button" type="submit" formaction="EditServlet" name="complete" value="complete">完了</button>
+                        <button class="input-container-button button" type="submit" name="edit<%= piece %>">編集する</button>
+                        <button class="button" type="submit" name="completeedit<%= piece %>">完了</button>
                         
-                        <input type="hidden" name="edit" value="<%= piece %>">
+                        <%-- id="editClrButton<%= piece %>" --%>
+                        <%-- value="<%= piece %>" --%>
+                        <%-- id="editClrButton" --%>
+                        <%-- id="editCompButton" --%>
+                        <%-- <input type="hidden" name="edit<%= piece %>" value="<%= piece %>"> --%>
                         <%-- <input type="hidden" name="pieceNumberString" value="<%= piece %>"> --%>
-                        
+                        <p><%= piece %></p>
                     </div>
                 </div>   
                 <% } %>
@@ -108,7 +127,37 @@ String title = "";
         <script>
         function toggleDropdown() {
             document.getElementById("myDropdown").classList.toggle("show");
-        }
+        };
+//        window.onload = function() {
+//            if (sessionStorage.getItem('reloaded') !== 'true') {
+//                sessionStorage.setItem('reloaded', 'true');
+//                location.reload(true);
+//            }
+//        };
+//        function editAndClear() {
+//            sessionStorage.clear();
+//            alert('sessionStorageがクリアされました');
+//            document.querySelector('.task-todo').submit();
+//        }
+//        function completeAndClear() {
+//            sessionStorage.clear();
+//            alert('sessionStorageがクリアされました');
+//            document.querySelector('.task-todo').submit();
+//        }
+
+//        const buttons = document.getElementsByName('editClrButton${piece}');
+//        const buttonName = buttons.getAttribute('name');
+//        console.log(buttonName);
+//        const editClrButton = document.getElementById('editClrButton');
+//        editClrButton.addEventListener('click', function() {
+//            sessionStorage.clear();
+//            console.log('sessionStorageがクリアされました');
+//        });
+//        const editCompButton = document.getElementById('editCompButton');
+//                editCompButton.addEventListener('click', function() {
+//            sessionStorage.clear();
+//            console.log('sessionStorageがクリアされました');
+//        });
         </script>
     </body>
 </html>

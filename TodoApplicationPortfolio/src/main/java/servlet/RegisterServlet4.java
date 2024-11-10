@@ -92,9 +92,11 @@ public class RegisterServlet4 extends HttpServlet {
 		if (newregisterjudge) {
 			dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 			dispatcher.forward(request, response);
+			return;
 		} else {
 			dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

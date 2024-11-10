@@ -70,6 +70,7 @@ public class EditRegServlet extends HttpServlet {
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("EditRegServlet2");
 			dispatcher.forward(request, response);
+			return;
 			
 		} else {
 			//
@@ -77,6 +78,7 @@ public class EditRegServlet extends HttpServlet {
 			request.setAttribute("errorMsg", errorMsg);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

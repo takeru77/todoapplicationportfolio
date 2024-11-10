@@ -48,10 +48,12 @@ public class AllTasks implements Serializable {
 	
 	public Optional<LocalDate> getDeadlinedate() {
 		if (deadlinedate == null) {
-			return Optional.empty();
+//			return Optional.empty();
+			return Optional.ofNullable(null);
 		}
-		LocalDate localDate = deadlinedate.get();
-		return Optional.ofNullable(localDate);
+//		LocalDate localDate = deadlinedate.get();
+//		return Optional.ofNullable(localDate);
+		return deadlinedate;
 	}
 	
 	public void setDeadlinedate(Optional<LocalDate> deadlinedate) { this.deadlinedate = deadlinedate; }

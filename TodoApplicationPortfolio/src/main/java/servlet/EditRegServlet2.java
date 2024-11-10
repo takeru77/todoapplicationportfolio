@@ -59,12 +59,14 @@ public class EditRegServlet2 extends HttpServlet {
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tasktodo.jsp");
 			dispatcher.forward(request, response);
+			return;
 			//
 		} else {
 			String errorMsg = "編集に失敗しました";
 			request.setAttribute("errorMsg", errorMsg);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/edittasks.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 	}
 }
