@@ -111,7 +111,6 @@ String title = "";
                         <%-- id="editCompButton" --%>
                         <%-- <input type="hidden" name="edit<%= piece %>" value="<%= piece %>"> --%>
                         <%-- <input type="hidden" name="pieceNumberString" value="<%= piece %>"> --%>
-                        <p><%= piece %></p>
                     </div>
                 </div>   
                 <% } %>
