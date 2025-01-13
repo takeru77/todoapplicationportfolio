@@ -1,2 +1,4 @@
 # todoapplicationportfolio
 ToDoApplicationポートフォリオアプリ作成時のリポジトリ
+開始日：9月16日
+終了日：11月10日
