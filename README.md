@@ -5,11 +5,17 @@
 ## 概要
 Servlet / JSP を用いて作成したTODO管理Webアプリです。
 さくらのVPS上にデプロイし、Apache + Tomcatで運用しています。
+
 【デモ用ログイン情報】
+
 以下の情報ですぐに動作確認いただけます。
+
 ・メールアドレス
+
 test.email@example.com
+
 ・パスワード
+
 password123
 
 ## URL
