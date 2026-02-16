@@ -14,7 +14,7 @@ test.email@example.com
 password123
 
 ## URL
-https://takeehomepagerensyu.com/TodoApplicationPortfolio/
+https://takeehomepagerensyu.com/TaskManagementTool/
 
 ## 使用技術
 - Java 21
